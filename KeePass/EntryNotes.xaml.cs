@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using KeePass.Data;
-using KeePass.I18n;
+using KeePass.I18n; 
 using KeePass.Storage;
 using KeePass.Utils;
 
