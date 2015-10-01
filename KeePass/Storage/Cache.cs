@@ -18,7 +18,7 @@ namespace KeePass.Storage
         private const string KEY_DATABASE = "Database";
         public const string KEY_IMAGESTYLE_IN_Classic = "ImageStyle";
         private const string ClassicImagePath = "/Images/KeePass/Classic/{0:00}.png";
-        private const string ModernImagePaht = "/Images/KeePass/Modern/{1}/{0:00}.png";
+        private const string ModernImagePath = "/Images/KeePass/Modern/{1}/{0:00}.png";
         private static readonly IsolatedStorageSettings _appSettings;
         private static readonly object _lckStandards;
         private static readonly Dictionary<int, ImageSource> _standards;
@@ -44,7 +44,7 @@ namespace KeePass.Storage
         public static void InvertStyle()
         {
 
-            _imagePath = InClassicStyle() ? ModernImagePaht : ClassicImagePath;
+            _imagePath = InClassicStyle() ? ModernImagePath : ClassicImagePath;
             _appSettings[KEY_IMAGESTYLE_IN_Classic] = InClassicStyle();
             ResetCache();
         }
@@ -186,7 +186,7 @@ namespace KeePass.Storage
         public static void ResetCache()
         {
             var item = (_appSettings[KEY_IMAGESTYLE_IN_Classic] as bool?) ?? false;
-            _imagePath = item ? ClassicImagePath : ModernImagePaht;
+            _imagePath = item ? ClassicImagePath : ModernImagePath;
             if (_standards != null)
                 _standards.Clear();
         }
