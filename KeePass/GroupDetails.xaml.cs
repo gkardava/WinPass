@@ -23,8 +23,8 @@ namespace KeePass
         private IList<string> _ids;
         private DateTime _lastModified;
 
-        ApplicationBarMenuItem mnuSync;
-
+        ApplicationBarMenuItem mnuPin;
+        ApplicationBarIconButton mnuSync;
         public GroupDetails()
         {
             InitializeComponent();
@@ -41,8 +41,8 @@ namespace KeePass
             AppButton(1).Text = Strings.GroupDetails_NewGroup;
             AppButton(2).Text = Strings.Refresh;
             AppButton(3).Text = Strings.GroupDetails_Search;
-
-            mnuSync = ApplicationBar.MenuItems[2] as ApplicationBarMenuItem;
+            mnuSync = AppButton(2);
+            mnuPin = ApplicationBar.MenuItems[2] as ApplicationBarMenuItem;
         }
 
         protected override void OnBackKeyPress(CancelEventArgs e)
@@ -78,9 +78,8 @@ namespace KeePass
                 return;
             }
 
-            if (Cache.DbInfo.Details.Type.ToString() == "OneTime")
-                mnuSync.IsEnabled = false;
-
+            //if (Cache.DbInfo != null && Cache.DbInfo.Details.Type.ToString() == "OneTime")
+            //    mnuSync.IsEnabled = false;
             _group = GetGroup(database);
             lstHistory.ItemsSource = null;
             pivotGroup.Header = _group.Name;
@@ -530,7 +529,7 @@ namespace KeePass
         private void mnuPin_Click(object sender, EventArgs e)
         {
             //var item = (MenuItem)sender;
-            
+
             //var database = (DatabaseInfo)item.Tag;
 
             if (TilesManager.Pin(Cache.DbInfo))
