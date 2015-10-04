@@ -22,7 +22,7 @@ namespace KeePass
         public Password()
         {
             InitializeComponent();
-            
+
             _cmdOpen = AppButton(0);
             _cmdOpen.Text = Strings.Password_Open;
             AppButton(1).Text = Strings.Clear;
@@ -183,6 +183,22 @@ namespace KeePass
             public string Folder { get; set; }
             public string Password { get; set; }
             public bool SavePassword { get; set; }
+        }
+
+        private void txtPassword_DoubleTap(object sender, GestureEventArgs e)
+        {
+            txtPasswordtext.Text = txtPassword.Password;
+            txtPasswordtext.SelectAll();
+            txtPassword.Visibility = Visibility.Collapsed;
+            txtPasswordtext.Visibility = Visibility.Visible;
+
+        }
+
+        private void txtPasswordtext_Tap(object sender, GestureEventArgs e)
+        {
+            txtPasswordtext.Visibility = Visibility.Collapsed;
+            txtPassword.Visibility = Visibility.Visible;
+            txtPassword.Focus();
         }
     }
 }
