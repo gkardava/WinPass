@@ -59,23 +59,30 @@ namespace KeePass.Sources
 
         public async void ContinueFileOpenPicker(FileOpenPickerContinuationEventArgs args)
         {
-            if ((args.ContinuationData["Action"] as string) == "KDBX" &&
-                args.Files != null &&
+            if (args.Files != null &&
                 args.Files.Count > 0)
             {
-                StorageFile file = args.Files[0];
-
-                if (file.Name.EndsWith("kdbx"))
+                var action = (args.ContinuationData["Action"] as string);
+                if (action == "KDBX")
                 {
-                    var info = new DatabaseInfo();
-                    var test = await file.OpenReadAsync();
-                    info.SetDatabase(test.AsStream(), new DatabaseDetails
+                    StorageFile file = args.Files[0];
+
+                    if (file.Name.EndsWith("kdbx",StringComparison.OrdinalIgnoreCase))
                     {
-                        Source = "FileSystem",
-                        Name = file.Name.RemoveKdbx(),
-                        Type = SourceTypes.OneTime,
-                    });
-                    this.NavigateTo<MainPage>();
+                        var info = new DatabaseInfo();
+                        var test = await file.OpenReadAsync();
+                        info.SetDatabase(test.AsStream(), new DatabaseDetails
+                        {
+                            Source = "FileSystem",
+                            Name = file.Name.RemoveKdbx(),
+                            Type = SourceTypes.OneTime,
+                        });
+                        this.NavigateTo<MainPage>();
+                    }
+                }
+                if (action == "KEY")
+                {
+
                 }
             }
         }
