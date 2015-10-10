@@ -6,6 +6,7 @@ using System.Windows.Navigation;
 using System.Windows.Threading;
 using Windows.Storage.Pickers;
 using KeePass.I18n;
+using KeePass.Sources;
 using KeePass.Storage;
 using KeePass.Utils;
 using Microsoft.Phone.Shell;
@@ -46,7 +47,7 @@ namespace KeePass
 
             _folder = NavigationContext.QueryString["db"];
             _hasKeyFile = new DatabaseInfo(_folder).HasKeyFile;
-           // _hasKeyFile = true;
+            
             UpdatePasswordStatus();
         }
 
@@ -207,6 +208,11 @@ namespace KeePass
             fileOpenPicker.ContinuationData["Action"] = "KEY";
             fileOpenPicker.FileTypeFilter.Add(".kdbx");
             fileOpenPicker.PickSingleFileAndContinue();
+        }
+
+        private void buttonLoadMasterKey_Tap(object sender, GestureEventArgs e)
+        {
+            this.NavigateTo<Download>("type={0}&folder=", "key");
         }
     }
 }

@@ -51,16 +51,17 @@ namespace KeePass.Sources
                 return;
             SelectFileType();
             _folder = NavigationContext.QueryString["folder"];
-            if (NavigationContext.QueryString.ContainsKey("fileToken") && !e.IsNavigationInitiator)
-            {
-                string fileID = NavigationContext.QueryString["fileToken"];
-                string incomingFileName = SharedStorageAccessManager.GetSharedFileName(fileID);
-                string msg = Strings.Download_OpenConfirm + incomingFileName + "'";
-                if (MessageBox.Show(msg, Strings.Download_OpenDB, MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            if (_type != "key")
+                if (NavigationContext.QueryString.ContainsKey("fileToken") && !e.IsNavigationInitiator)
                 {
-                    await loadExternalFile(fileID);
+                    string fileID = NavigationContext.QueryString["fileToken"];
+                    string incomingFileName = SharedStorageAccessManager.GetSharedFileName(fileID);
+                    string msg = Strings.Download_OpenConfirm + incomingFileName + "'";
+                    if (MessageBox.Show(msg, Strings.Download_OpenDB, MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+                    {
+                        await loadExternalFile(fileID);
+                    }
                 }
-            }
 
             var app = App.Current as App;
             if (app.QueueFileOpenPickerArgs.Count != 0)
