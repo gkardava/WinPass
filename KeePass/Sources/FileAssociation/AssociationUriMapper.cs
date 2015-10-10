@@ -28,16 +28,18 @@ namespace KeePass.Sources
                 string incomingFileName = SharedStorageAccessManager.GetSharedFileName(fileID);
 
                 // Get the file extension.
-                string incomingFileType = Path.GetExtension(incomingFileName).ToLower();
-
-                switch (incomingFileType)
+                var extension = Path.GetExtension(incomingFileName);
+                if (extension != null)
                 {
-                    case ".kdbx":
-                        return new Uri("/Sources/Download.xaml?folder=&fileToken=" + fileID, UriKind.Relative);
-                    default:
-                        // Otherwise perform normal launch.
-                        return new Uri("/MainPage.xaml", UriKind.Relative);
+                    string incomingFileType = extension.ToLower();
+
+                    if (".key" == incomingFileType || incomingFileType == ".kdbx")
+                    {
+                        return new Uri($"/Sources/Download.xaml?type={incomingFileType}&folder=&fileToken={fileID}", UriKind.Relative);
+                    }
                 }
+                return new Uri("/MainPage.xaml", UriKind.Relative);
+
             }
             return uri;
         }

@@ -6,14 +6,11 @@ using KeePass.Storage;
 using KeePass.Utils;
 using Microsoft.Phone.Controls;
 using Windows.Storage.Pickers;
-
 using Windows.Phone.Storage.SharedAccess;
 using System.IO.IsolatedStorage;
 using Windows.Storage;
-
 using System.Threading.Tasks;
 using System.IO;
-
 using Microsoft.Phone.Shell;
 using KeePass.Sources;
 using Windows.ApplicationModel.Activation;
@@ -24,6 +21,7 @@ namespace KeePass.Sources
     {
         const string KdbxFormat = ".kdbx", KeyFormat = ".key";
         private string _folder;
+        private string _type;
         public FileOpenPickerContinuationEventArgs FilePickerContinuationArgs { get; set; }
 
         public Download()
@@ -32,14 +30,26 @@ namespace KeePass.Sources
             AppMenu(0).Text = Strings.Download_Demo;
         }
 
+        protected void SelectFileType()
+        {
+            if (NavigationContext.QueryString["type"].ToLower() == "key")
+            {
+                _type = KeyFormat;
+                lnkDemo.Visibility = Visibility.Collapsed;
+                ApplicationBar.IsVisible = false;
+            }
+            else
+            {
+                _type = KdbxFormat;
+            }
+        }
         protected async override void OnNavigatedTo(
             bool cancelled, NavigationEventArgs e)
         {
             if (cancelled)
                 return;
-
+            SelectFileType();
             _folder = NavigationContext.QueryString["folder"];
-
             if (NavigationContext.QueryString.ContainsKey("fileToken") && !e.IsNavigationInitiator)
             {
                 string fileID = NavigationContext.QueryString["fileToken"];
@@ -63,6 +73,7 @@ namespace KeePass.Sources
             if (args.Files != null &&
                 args.Files.Count > 0)
             {
+                SelectFileType();
                 var action = (args.ContinuationData["Action"] as string);
                 switch (action)
                 {
@@ -163,8 +174,8 @@ namespace KeePass.Sources
         private void lnkLocal_Click(object sender, RoutedEventArgs e)
         {
             FileOpenPicker fileOpenPicker = new FileOpenPicker();
-            fileOpenPicker.ContinuationData["Action"] = KdbxFormat;
-            fileOpenPicker.FileTypeFilter.Add(KeyFormat);
+            fileOpenPicker.ContinuationData["Action"] = _type;
+            fileOpenPicker.FileTypeFilter.Add(_type);
             fileOpenPicker.PickSingleFileAndContinue();
         }
     }
