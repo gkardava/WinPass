@@ -32,16 +32,17 @@ namespace KeePass.Sources
 
         protected void SelectFileType()
         {
-            if (NavigationContext.QueryString["type"].ToLower() == "key")
+            string type;
+            if (NavigationContext.QueryString.TryGetValue("type", out type) && type.ToLower() == "key")
             {
                 _type = KeyFormat;
                 lnkDemo.Visibility = Visibility.Collapsed;
                 ApplicationBar.IsVisible = false;
+
             }
             else
-            {
                 _type = KdbxFormat;
-            }
+
         }
         protected async override void OnNavigatedTo(
             bool cancelled, NavigationEventArgs e)
