@@ -481,6 +481,7 @@ namespace KeePass
         private void UNCopy_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(txtUsername.Text);
+            VibrateController.Default.Start(TimeSpan.FromMilliseconds(30));
         }
 
         private void PWCopy_Click(object sender, EventArgs e)
@@ -578,6 +579,7 @@ namespace KeePass
         private void cmdUNCopy_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(txtUsername.Text);
+            VibrateController.Default.Start(TimeSpan.FromMilliseconds(30));
         }
 
         private void mnuSettings_Click(object sender, EventArgs e)
@@ -595,6 +597,12 @@ namespace KeePass
 
             _binding.HasChanges = true;
             field.Value = txtField.Text;
+        }
+
+        private void TextBlock_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            Clipboard.SetText(((TextBlock)sender).Text);
+            VibrateController.Default.Start(TimeSpan.FromMilliseconds(30));
         }
     }
 }

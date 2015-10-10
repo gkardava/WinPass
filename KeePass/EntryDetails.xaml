@@ -123,7 +123,8 @@
             							Grid.Column="1" VerticalAlignment="Center"
             							Visibility="{Binding NameLabelVisibility}"
             							Style="{StaticResource PhoneTextNormalStyle}"
-            							FontSize="{StaticResource PhoneFontSizeLarge}" />
+            							FontSize="{StaticResource PhoneFontSizeLarge}"
+                                        Tap="TextBlock_Tap"/>
 
             						<toolkit:PhoneTextBox Text="{Binding Name, Mode=TwoWay}"
             							Tag="{Binding ''}" Visibility="{Binding EditVisibility}"

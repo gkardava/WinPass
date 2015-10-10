@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Windows.Threading;
+using Windows.Storage.Pickers;
 using KeePass.I18n;
 using KeePass.Storage;
 using KeePass.Utils;
@@ -45,7 +46,7 @@ namespace KeePass
 
             _folder = NavigationContext.QueryString["db"];
             _hasKeyFile = new DatabaseInfo(_folder).HasKeyFile;
-
+           // _hasKeyFile = true;
             UpdatePasswordStatus();
         }
 
@@ -199,6 +200,13 @@ namespace KeePass
             txtPasswordtext.Visibility = Visibility.Collapsed;
             txtPassword.Visibility = Visibility.Visible;
             txtPassword.Focus();
+        }
+        private void lnkLocal_Click(object sender, RoutedEventArgs e)
+        {
+            FileOpenPicker fileOpenPicker = new FileOpenPicker();
+            fileOpenPicker.ContinuationData["Action"] = "KEY";
+            fileOpenPicker.FileTypeFilter.Add(".kdbx");
+            fileOpenPicker.PickSingleFileAndContinue();
         }
     }
 }

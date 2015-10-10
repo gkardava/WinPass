@@ -12,7 +12,7 @@
     <Language code="ka-GE" />
     <Language code="ka" />
   </Languages>
-  <App xmlns="" ProductID="{6ba36dda-573b-46cf-b110-6beaaea81c98}" Title="WinPass" RuntimeType="Silverlight" Version="1.1.0.9" Genre="apps.normal" Author="Giorgi kardava" Description="KeePass for Windows Phone" Publisher="gkardava" PublisherID="{E2407FAA-54A5-4FBE-A000-72A83BCEBA17}" SDOptOut="false" NotificationService="MPN">
+  <App xmlns="" ProductID="{6ba36dda-573b-46cf-b110-6beaaea81c98}" Title="WinPass" RuntimeType="Silverlight" Version="1.2.0.0" Genre="apps.normal" Author="Giorgi kardava" Description="KeePass for Windows Phone" Publisher="gkardava" PublisherID="{E2407FAA-54A5-4FBE-A000-72A83BCEBA17}" SDOptOut="false" NotificationService="MPN">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
