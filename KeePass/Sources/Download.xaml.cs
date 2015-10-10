@@ -22,6 +22,7 @@ namespace KeePass.Sources
 {
     public partial class Download
     {
+        const string KdbxFormat = ".kdbx", KeyFormat = ".key";
         private string _folder;
         public FileOpenPickerContinuationEventArgs FilePickerContinuationArgs { get; set; }
 
@@ -63,26 +64,29 @@ namespace KeePass.Sources
                 args.Files.Count > 0)
             {
                 var action = (args.ContinuationData["Action"] as string);
-                if (action == "KDBX")
+                switch (action)
                 {
-                    StorageFile file = args.Files[0];
-
-                    if (file.Name.EndsWith("kdbx",StringComparison.OrdinalIgnoreCase))
-                    {
-                        var info = new DatabaseInfo();
-                        var test = await file.OpenReadAsync();
-                        info.SetDatabase(test.AsStream(), new DatabaseDetails
+                    case KdbxFormat:
                         {
-                            Source = "FileSystem",
-                            Name = file.Name.RemoveKdbx(),
-                            Type = SourceTypes.OneTime,
-                        });
-                        this.NavigateTo<MainPage>();
-                    }
-                }
-                if (action == "KEY")
-                {
+                            StorageFile file = args.Files[0];
 
+                            if (file.Name.EndsWith(KdbxFormat, StringComparison.OrdinalIgnoreCase))
+                            {
+                                var info = new DatabaseInfo();
+                                var test = await file.OpenReadAsync();
+                                info.SetDatabase(test.AsStream(), new DatabaseDetails
+                                {
+                                    Source = "FileSystem",
+                                    Name = file.Name.RemoveKdbx(),
+                                    Type = SourceTypes.OneTime,
+                                });
+                                this.NavigateTo<MainPage>();
+                            }
+                        }
+                        break;
+                    case KeyFormat:
+                        throw new NotImplementedException("not implemented format exception");
+                        break;
                 }
             }
         }
@@ -159,8 +163,8 @@ namespace KeePass.Sources
         private void lnkLocal_Click(object sender, RoutedEventArgs e)
         {
             FileOpenPicker fileOpenPicker = new FileOpenPicker();
-            fileOpenPicker.ContinuationData["Action"] = "KDBX";
-            fileOpenPicker.FileTypeFilter.Add(".kdbx");
+            fileOpenPicker.ContinuationData["Action"] = KdbxFormat;
+            fileOpenPicker.FileTypeFilter.Add(KeyFormat);
             fileOpenPicker.PickSingleFileAndContinue();
         }
     }
