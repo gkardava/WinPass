@@ -43,7 +43,7 @@ namespace KeePass
             InitializeComponent();
 
             btnSave = ApplicationBar.Buttons[0] as ApplicationBarIconButton;
-            btnClose =  ApplicationBar.Buttons[1] as ApplicationBarIconButton;
+            btnClose = ApplicationBar.Buttons[1] as ApplicationBarIconButton;
             btnDelete = ApplicationBar.Buttons[2] as ApplicationBarIconButton;
             btnSave.Text = Strings.EntryDetails_SaveEntry;
             btnClose.Text = Strings.EntryDetails_ResetEntry;
@@ -63,23 +63,23 @@ namespace KeePass
             _database.LoadDetails();
 
             _originalName = _database.Details.Name;
-            
+
             DateTime convertedDate;
             convertedDate = DateTime.Now;
 
             txtName.Text = _originalName;
             var urlstr = _database.Details.Url;
-            
+
             var locCH = "";
             if (_database.Details.HasLocalChanges)
                 locCH = "\n " + Strings.DBDetail_LocalCH;
 
             mnuDelKeyFile.IsEnabled = _database.HasKeyFile;
-            mnuClearPW.IsEnabled =_database.HasPassword;
+            mnuClearPW.IsEnabled = _database.HasPassword;
 
             switch (_database.Details.Source)
             {
-                case "Demo":                    
+                case "Demo":
                     lblSource.Text = _database.Details.Source + locCH;
 
                     txtURL.Visibility = Visibility.Collapsed;
@@ -232,7 +232,7 @@ namespace KeePass
                 btnSave.IsEnabled = true;
                 btnClose.IsEnabled = true;
             }
-            else 
+            else
             {
                 btnSave.IsEnabled = false;
                 btnClose.IsEnabled = false;
@@ -261,7 +261,7 @@ namespace KeePass
         private void mnuKeyFile_Click(object sender, EventArgs e)
         {
             this.NavigateTo<Download>(
-                "folder={0}", _database.Folder);
+                "type=key&folder={0}", _database.Folder);
         }
 
         private void mnuClearKeyFile_Click(object sender, EventArgs e)
@@ -281,7 +281,7 @@ namespace KeePass
                 btnSave.IsEnabled = false;
                 btnClose.IsEnabled = false;
             }
-        }        
+        }
 
         private void user_ch(object sender, TextChangedEventArgs e)
         {

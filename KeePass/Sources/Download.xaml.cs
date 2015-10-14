@@ -14,6 +14,8 @@ using System.IO;
 using Microsoft.Phone.Shell;
 using KeePass.Sources;
 using Windows.ApplicationModel.Activation;
+using System.Runtime.InteropServices.WindowsRuntime;
+using KeePass.IO.Data;
 
 namespace KeePass.Sources
 {
@@ -44,6 +46,9 @@ namespace KeePass.Sources
                 _type = KdbxFormat;
 
         }
+
+
+
         protected async override void OnNavigatedTo(
             bool cancelled, NavigationEventArgs e)
         {
@@ -76,11 +81,12 @@ namespace KeePass.Sources
             {
                 SelectFileType();
                 var action = (args.ContinuationData["Action"] as string);
+                StorageFile file;
                 switch (action)
                 {
                     case KdbxFormat:
                         {
-                            StorageFile file = args.Files[0];
+                            file = args.Files[0];
 
                             if (file.Name.EndsWith(KdbxFormat, StringComparison.OrdinalIgnoreCase))
                             {
@@ -97,7 +103,14 @@ namespace KeePass.Sources
                         }
                         break;
                     case KeyFormat:
-                        
+                        file = args.Files[0];
+
+                        if (file.Name.EndsWith(KeyFormat, StringComparison.OrdinalIgnoreCase))
+                        {
+                            var test = await file.OpenReadAsync();
+                            (new DatabaseInfo(_folder)).SetKeyFile(KeyFile.GetKey(test.AsStream()));
+                            this.NavigateTo<MainPage>();
+                        }
                         break;
                 }
             }
