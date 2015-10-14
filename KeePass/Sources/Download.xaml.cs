@@ -51,17 +51,16 @@ namespace KeePass.Sources
                 return;
             SelectFileType();
             _folder = NavigationContext.QueryString["folder"];
-            if (_type != "key")
-                if (NavigationContext.QueryString.ContainsKey("fileToken") && !e.IsNavigationInitiator)
+            if (NavigationContext.QueryString.ContainsKey("fileToken") && !e.IsNavigationInitiator)
+            {
+                string fileID = NavigationContext.QueryString["fileToken"];
+                string incomingFileName = SharedStorageAccessManager.GetSharedFileName(fileID);
+                string msg = Strings.Download_OpenConfirm + incomingFileName + "'";
+                if (MessageBox.Show(msg, Strings.Download_OpenDB, MessageBoxButton.OKCancel) == MessageBoxResult.OK)
                 {
-                    string fileID = NavigationContext.QueryString["fileToken"];
-                    string incomingFileName = SharedStorageAccessManager.GetSharedFileName(fileID);
-                    string msg = Strings.Download_OpenConfirm + incomingFileName + "'";
-                    if (MessageBox.Show(msg, Strings.Download_OpenDB, MessageBoxButton.OKCancel) == MessageBoxResult.OK)
-                    {
-                        await loadExternalFile(fileID);
-                    }
+                    await loadExternalFile(fileID, _type);
                 }
+            }
 
             var app = App.Current as App;
             if (app.QueueFileOpenPickerArgs.Count != 0)
@@ -98,7 +97,7 @@ namespace KeePass.Sources
                         }
                         break;
                     case KeyFormat:
-                        throw new NotImplementedException("not implemented format exception");
+                        
                         break;
                 }
             }
@@ -131,7 +130,7 @@ namespace KeePass.Sources
             this.BackToDBs();
         }
 
-        private async Task loadExternalFile(string fileID)
+        private async Task loadExternalFile(string fileID, string type)
         {
             using (IsolatedStorageFile isoStore = IsolatedStorageFile.GetUserStoreForApplication())
             {
@@ -143,12 +142,13 @@ namespace KeePass.Sources
             var file = await SharedStorageAccessManager.CopySharedFileAsync(tempFolder, incomingFileName, NameCollisionOption.ReplaceExisting, fileID);
             var info = new DatabaseInfo();
             var randAccessStream = await file.OpenReadAsync();
-            info.SetDatabase(randAccessStream.AsStream(), new DatabaseDetails
-            {
-                Source = "ExternalApp",
-                Name = incomingFileName.RemoveKdbx(),
-                Type = SourceTypes.OneTime,
-            });
+            if (type.ToLower() == ".kdbx")
+                info.SetDatabase(randAccessStream.AsStream(), new DatabaseDetails
+                {
+                    Source = "ExternalApp",
+                    Name = incomingFileName.RemoveKdbx(),
+                    Type = SourceTypes.OneTime,
+                });
 
             this.NavigateTo<MainPage>();
         }
