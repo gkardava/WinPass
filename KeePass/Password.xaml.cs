@@ -47,7 +47,7 @@ namespace KeePass
 
             _folder = NavigationContext.QueryString["db"];
             _hasKeyFile = new DatabaseInfo(_folder).HasKeyFile;
-            
+
             UpdatePasswordStatus();
         }
 
@@ -212,7 +212,7 @@ namespace KeePass
 
         private void buttonLoadMasterKey_Tap(object sender, GestureEventArgs e)
         {
-            this.NavigateTo<Download>("type={0}&folder=", "key");
+            this.NavigateTo<Download>("type={0}&folder={1}", "key", _folder);
         }
     }
 }

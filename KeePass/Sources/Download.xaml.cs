@@ -32,7 +32,7 @@ namespace KeePass.Sources
             AppMenu(0).Text = Strings.Download_Demo;
         }
 
-        protected void SelectFileType()
+        protected void InitialLocalValues()
         {
             string type;
             if (NavigationContext.QueryString.TryGetValue("type", out type) && type.ToLower() == "key")
@@ -45,6 +45,8 @@ namespace KeePass.Sources
             else
                 _type = KdbxFormat;
 
+            _folder = NavigationContext.QueryString["folder"];
+
         }
 
 
@@ -54,8 +56,7 @@ namespace KeePass.Sources
         {
             if (cancelled)
                 return;
-            SelectFileType();
-            _folder = NavigationContext.QueryString["folder"];
+            InitialLocalValues();
             if (NavigationContext.QueryString.ContainsKey("fileToken") && !e.IsNavigationInitiator)
             {
                 string fileID = NavigationContext.QueryString["fileToken"];
@@ -76,10 +77,11 @@ namespace KeePass.Sources
 
         public async void ContinueFileOpenPicker(FileOpenPickerContinuationEventArgs args)
         {
+
+            InitialLocalValues();
             if (args.Files != null &&
                 args.Files.Count > 0)
             {
-                SelectFileType();
                 var action = (args.ContinuationData["Action"] as string);
                 StorageFile file;
                 switch (action)
@@ -109,7 +111,8 @@ namespace KeePass.Sources
                         {
                             var test = await file.OpenReadAsync();
                             (new DatabaseInfo(_folder)).SetKeyFile(KeyFile.GetKey(test.AsStream()));
-                            this.NavigateTo<MainPage>();
+                            NavigationService.GoBack();
+                            //  this.NavigateTo<MainPage>();
                         }
                         break;
                 }

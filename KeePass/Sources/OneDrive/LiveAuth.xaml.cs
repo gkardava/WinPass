@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Navigation;
 using KeePass.Utils;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -14,6 +15,13 @@ namespace KeePass.Sources.OneDrive
             InitializeComponent();
             _indicator = AddIndicator();
         }
+        private string _folder;
+        protected override void OnNavigatedTo(bool cancelled, NavigationEventArgs e)
+        {
+            _folder = NavigationContext
+                   .QueryString["folder"];
+            base.OnNavigatedTo(cancelled, e);
+        }
 
         private void CheckToken(Uri uri)
         {
@@ -27,12 +35,10 @@ namespace KeePass.Sources.OneDrive
             var code = query.Substring(prefix.Length);
             OneDriveClient.GetToken(code, token =>
             {
-                var folder = NavigationContext
-                    .QueryString["folder"];
 
                 this.NavigateTo<List>(
                     "token={0}&folder={1}",
-                    token, folder);
+                    token, _folder);
             });
         }
 
