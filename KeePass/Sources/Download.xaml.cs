@@ -24,6 +24,7 @@ namespace KeePass.Sources
         const string KdbxFormat = ".kdbx", KeyFormat = ".key";
         private string _folder;
         private string _type;
+        private string _backTo;
         public FileOpenPickerContinuationEventArgs FilePickerContinuationArgs { get; set; }
 
         public Download()

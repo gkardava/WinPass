@@ -36,6 +36,7 @@ namespace KeePass.Sources.OneDrive
                 .QueryString;
 
             _folder = pars["folder"];
+
             _client = new OneDriveClient(pars["token"]);
 
             RefreshList(null);
@@ -66,6 +67,8 @@ namespace KeePass.Sources.OneDrive
                             Type = SourceTypes.Synchronizable,
                             Source = DatabaseUpdater.ONEDRIVE_UPDATER,
                         });
+                        dispatcher.BeginInvoke(
+                    this.BackToDBs);
                     }
                     else
                     {
@@ -76,17 +79,18 @@ namespace KeePass.Sources.OneDrive
                                 Properties.Resources.InvalidKeyFile,
                                 Properties.Resources.KeyFileTitle,
                                 MessageBoxButton.OK));
-
                             return;
                         }
 
                         new DatabaseInfo(_folder)
                             .SetKeyFile(hash);
+
+                        dispatcher.BeginInvoke(
+                    this.BackToDBPassword);
                     }
                 }
 
-                dispatcher.BeginInvoke(
-                    this.BackToDBs);
+
             }
             finally
             {

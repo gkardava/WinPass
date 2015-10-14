@@ -11,6 +11,14 @@ namespace KeePass.Utils
         {
             page.BackTo<MainPage>();
         }
+        public static void BackToDBPassword(
+            this PhoneApplicationPage page)
+        {
+            if (page.NavigationService.BackStack.Any(_ => _.Source.OriginalString.Contains("Password.xaml")))
+                page.BackTo<Password>();
+            else page.BackToDBs();
+        }
+
 
         public static void BackToRoot(
             this PhoneApplicationPage page)
