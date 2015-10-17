@@ -13,6 +13,7 @@ using KeePass.Utils;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.Phone.Net.NetworkInformation;
+using Microsoft.Phone.Tasks;
 
 namespace KeePass
 {
@@ -33,6 +34,7 @@ namespace KeePass
             AppButton(0).Text = Strings.MainPage_AddNew;
             AppButton(1).Text = Strings.MainPage_SyncAll;
             AppButton(2).Text = Strings.MainPage_Settings;
+            AppButton(3).Text = Strings.About_Review;
 
             _items = new ObservableCollection<DatabaseItem>();
             lstDatabases.ItemsSource = _items;
@@ -414,6 +416,11 @@ namespace KeePass
         private void mnuSettings_Click(object sender, EventArgs e)
         {
             this.NavigateTo<Settings>("page=0");
+        }
+
+        private void mnuRate_Click(object sender, EventArgs e)
+        {
+            new MarketplaceReviewTask().Show();
         }
 
         private void mnuUpdateAll_Click(object sender, EventArgs e)

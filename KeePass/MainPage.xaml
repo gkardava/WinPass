@@ -7,7 +7,7 @@
     xmlns:keepass="clr-namespace:KeePass.Utils"
     xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:uc="clr-namespace:KeePass.Controls"
-	Style="{StaticResource KeePassPage}" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="728" d:DesignWidth="480">
+	Style="{StaticResource KeePassPage}" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="728" d:DesignWidth="480" Orientation="Portrait">
 
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
@@ -61,7 +61,7 @@
 
                         <Image Source="{Binding PasswordIcon}" Width="32" Height="32" Stretch="Fill"
                                Grid.Column="1" Grid.Row="0"/>
-                        
+
                         <TextBlock Text="{Binding Name}"
                                    Grid.Column="2" Grid.Row="0"
                                    Style="{StaticResource PhoneTextExtraLargeStyle}" />
@@ -74,18 +74,23 @@
             </uc:KeePassListBase.ItemTemplate>
         </uc:KeePassListBase>
     </Grid>
- 
+
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar>
             <shell:ApplicationBarIconButton
                 IconUri="/Images/new.png"
-                Text="[Add New]" Click="mnuNew_Click"/>            
+                Text="[Add New]" Click="mnuNew_Click"/>
             <shell:ApplicationBarIconButton
                 IconUri="/Images/refresh.png"
                 Text="[Synchronize/Update all]" Click="mnuUpdateAll_Click" IsEnabled="False" x:Name="RefreshButton"/>
             <shell:ApplicationBarIconButton
                 IconUri="/Images/settings.png"
                 Text="[Settings]" Click="mnuSettings_Click"/>
+            <shell:ApplicationBarIconButton 
+                IconUri="/Images/rate.png"
+                Click="mnuRate_Click"
+                Text="[Rate]"/>
+
             <!--<shell:ApplicationBarIconButton
                 IconUri="/Images/about.png"
                 Text="[About]" Click="mnuAbout_Click"/>
