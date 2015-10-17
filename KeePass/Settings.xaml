@@ -59,7 +59,7 @@
                         </StackPanel>
 
                         <TextBlock Text="{Binding Path=Strings.About_Source_Code, Source={StaticResource UiStrings}}" HorizontalAlignment="Center" />
-                        <HyperlinkButton Content="WinPass" TargetName="_blank" NavigateUri="https://github.com/0x49D1/WinPass" />
+                        <HyperlinkButton Content="WinPass" TargetName="_blank" NavigateUri="https://github.com/gkardava/WinPass" />
                         <TextBlock Text=" " />
                         <TextBlock HorizontalAlignment="Center">This App is based on:</TextBlock>
                         <HyperlinkButton Content="7Pass" TargetName="_blank" NavigateUri="https://github.com/7pass/7pass" />
