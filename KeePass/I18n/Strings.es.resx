@@ -459,4 +459,7 @@ Su ID de instalación que será recolectado es:</value>
 	<data name="EntryDetails_NameReserved" xml:space="preserve">
 		<value>Algunos nombres de los campos reservados</value>
 	</data>
+	<data name="SetKeyFile" xml:space="preserve">
+		<value>archivo de clave</value>
+	</data>
 </root>

@@ -449,4 +449,7 @@ Twój identyfikator instalacji to:</value>
 	<data name="EntryDetails_NameReserved" xml:space="preserve">
 		<value>Niektóre nazwy pól zastrzeżone</value>
 	</data>
+	<data name="SetKeyFile" xml:space="preserve">
+		<value>plik klucza</value>
+	</data>
 </root>

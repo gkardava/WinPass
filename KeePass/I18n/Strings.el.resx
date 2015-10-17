@@ -449,4 +449,7 @@ Blog δημιουργού (Νέα &amp; Aνατροφοδότηση)</value>
 	<data name="EntryDetails_NameReserved" xml:space="preserve">
 		<value>Μερικά ονόματα τομέα κατοχυρωμένα</value>
 	</data>
+	<data name="SetKeyFile" xml:space="preserve">
+		<value>βασικό αρχείο</value>
+	</data>
 </root>

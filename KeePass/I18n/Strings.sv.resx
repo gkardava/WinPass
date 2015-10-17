@@ -524,4 +524,7 @@ Vill du att WinPass lägger till ".doc" till din databasnamn och sedan hämta de
 	<data name="EntryDetails_NameReserved" xml:space="preserve">
 		<value>Vissa fältnamn reserverade</value>
 	</data>
+	<data name="SetKeyFile" xml:space="preserve">
+		<value>nyckelfilen</value>
+	</data>
 </root>

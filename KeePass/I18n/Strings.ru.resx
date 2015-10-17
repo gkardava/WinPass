@@ -449,4 +449,7 @@
 	<data name="EntryDetails_NameReserved" xml:space="preserve">
 		<value>некоторые имена полей зарезервировано</value>
 	</data>
+	<data name="SetKeyFile" xml:space="preserve">
+		<value>файл ключа</value>
+	</data>
 </root>

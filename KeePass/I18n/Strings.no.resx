@@ -524,4 +524,7 @@ Vil du at WinPass legge til ".doc" til din databasenavn og deretter laste den ne
 	<data name="EntryDetails_NameReserved" xml:space="preserve">
 		<value>Noen feltnavn reservert</value>
 	</data>
+	<data name="SetKeyFile" xml:space="preserve">
+		<value>nøkkelfil</value>
+	</data>
 </root>

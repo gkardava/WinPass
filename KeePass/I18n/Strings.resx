@@ -633,4 +633,7 @@ Do you want WinPass to append ".doc" to your database name and then download it?
 	<data name="EntryDetails_NameReserved" xml:space="preserve">
     <value>Some field names reserved</value>
   </data>
+	<data name="SetKeyFile" xml:space="preserve">
+    <value>key file</value>
+  </data>
 </root>

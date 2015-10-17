@@ -449,4 +449,7 @@ Het installatie ID dat doorgegeven wordt is:</value>
 	<data name="EntryDetails_NameReserved" xml:space="preserve">
 		<value>Sommige veldnamen voorbehouden</value>
 	</data>
+	<data name="SetKeyFile" xml:space="preserve">
+		<value>sleutelbestand</value>
+	</data>
 </root>

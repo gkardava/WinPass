@@ -449,4 +449,7 @@ Your installation ID that will be collected is:</value>
 	<data name="EntryDetails_NameReserved" xml:space="preserve">
 		<value>Néhány mezőneveket fenntartva</value>
 	</data>
+	<data name="SetKeyFile" xml:space="preserve">
+		<value>kulcsfájllal</value>
+	</data>
 </root>

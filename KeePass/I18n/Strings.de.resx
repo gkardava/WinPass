@@ -513,18 +513,21 @@ Die aktuelle Installations-ID lautet:</value>
     <value>Sprache</value>
   </data>
 	<data name="Settings_VewMode" xml:space="preserve">
-		<value>Bildanzeigemodus</value>
-	</data>
+    <value>Bildanzeigemodus</value>
+  </data>
 	<data name="Settings_ModeClassic" xml:space="preserve">
-		<value>klassisch</value>
-	</data>
+    <value>klassisch</value>
+  </data>
 	<data name="Settings_ModeModern" xml:space="preserve">
-		<value>moderne</value>
-	</data>
+    <value>moderne</value>
+  </data>
 	<data name="EntryDetails_NameDuplicate" xml:space="preserve">
-		<value>Der eingegebene Name '{0}' ist bereits vorhanden und kann nicht verwendet werden.</value>
-	</data>
+    <value>Der eingegebene Name '{0}' ist bereits vorhanden und kann nicht verwendet werden.</value>
+  </data>
 	<data name="EntryDetails_NameReserved" xml:space="preserve">
-		<value>Einige Feldnamen reserviert</value>
+    <value>Einige Feldnamen reserviert</value>
+  </data>
+	<data name="SetKeyFile" xml:space="preserve">
+		<value>Schlüsseldatei</value>
 	</data>
 </root>

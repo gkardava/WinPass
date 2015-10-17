@@ -449,4 +449,7 @@ Votre ID d'installation collectée sera:</value>
 	<data name="EntryDetails_NameReserved" xml:space="preserve">
 		<value>Certains noms de domaine réservé</value>
 	</data>
+	<data name="SetKeyFile" xml:space="preserve">
+		<value>fichier de clé</value>
+	</data>
 </root>
