@@ -599,10 +599,10 @@ namespace KeePass
             field.Value = txtField.Text;
         }
 
-        private void TextBlock_Tap(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            Clipboard.SetText(((TextBlock)sender).Text);
-            VibrateController.Default.Start(TimeSpan.FromMilliseconds(30));
-        }
+        //private void TextBlock_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        //{
+        //    Clipboard.SetText(((TextBlock)sender).Text);
+        //    VibrateController.Default.Start(TimeSpan.FromMilliseconds(30));
+        //}
     }
 }
