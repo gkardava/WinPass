@@ -39,6 +39,7 @@ namespace KeePass.Sources
             if (NavigationContext.QueryString.TryGetValue("type", out type) && type.ToLower() == "key")
             {
                 _type = KeyFormat;
+                PageTitle.Text = Strings.SetKeyFile;
                 lnkDemo.Visibility = Visibility.Collapsed;
                 ApplicationBar.IsVisible = false;
 
