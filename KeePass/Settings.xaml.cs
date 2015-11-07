@@ -175,7 +175,7 @@ namespace KeePass
         {
             var si = listpickerLanguage.SelectedItem as LanguageProxy;
             SetUILanguage(si.Name);
-            if (AppSettings.Instance.Language != si.Name && MessageBox.Show(Properties.Resources.LanguageChangeWorrying, "", MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            if (AppSettings.Instance.Language != si.Name && ShowReloadMessage())
                 SetUILanguage(si.Name, true);
             else
                 SetUILanguage(AppSettings.Instance.Language);
@@ -191,19 +191,27 @@ namespace KeePass
             if (!change)
                 return;
             AppSettings.Instance.Language = locale;
-            this.NavigationService.Navigate(new Uri("/MainPage.xaml?languageChange=true", UriKind.Relative));
+            Reload();
         }
 
-
+        bool ShowReloadMessage()
+        {
+            return MessageBox.Show(Properties.Resources.LanguageChangeWorrying, "", MessageBoxButton.OKCancel) == MessageBoxResult.OK;
+        }
+        void Reload()
+        {
+            NavigationService.Navigate(new Uri("/MainPage.xaml?languageChange=true", UriKind.Relative));
+        }
 
         private void ViewMode_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var item = viewMode.SelectedItem as string;
-            if (item != null)
+            if (item != null && (item.Equals(Strings.Settings_ModeClassic) && !Cache.InClassicStyle() || !item.Equals(Strings.Settings_ModeClassic) && Cache.InClassicStyle()))
             {
-                if (item.Equals(Strings.Settings_ModeClassic) && !Cache.InClassicStyle() || !item.Equals(Strings.Settings_ModeClassic) && Cache.InClassicStyle())
-                    Cache.InvertStyle();
+                Cache.InvertStyle();
 
+                if (ShowReloadMessage())
+                    Reload();
             }
         }
     }
