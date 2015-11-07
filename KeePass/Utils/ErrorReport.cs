@@ -25,7 +25,7 @@ namespace KeePass.Utils
 
             new EmailComposeTask
             {
-                To = "g.kardava@live.com",
+                To = "g.kardava+winpass@live.com",
                 Subject = "Report: Open database error",
                 Body = sb.ToString()
             }.Show();

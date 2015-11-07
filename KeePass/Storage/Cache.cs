@@ -66,7 +66,7 @@ namespace KeePass.Storage
 
         static Cache()
         {
-           
+
             _lckStandards = new object();
             _appSettings = IsolatedStorageSettings
                 .ApplicationSettings;
@@ -75,13 +75,13 @@ namespace KeePass.Storage
             var v = (Visibility)Application.Current
                    .Resources["PhoneLightThemeVisibility"];
             _theamPrefix = v != Visibility.Visible ? "dark" : "light";
-        
+
         }
         public static void Initialize()
         {
             if (!_appSettings.Contains(KEY_IMAGESTYLE_IN_Classic))
             {
-                _appSettings[KEY_IMAGESTYLE_IN_Classic] = true;
+                _appSettings[KEY_IMAGESTYLE_IN_Classic] = false;// default style now moddern
             }
             var res = (_appSettings[KEY_IMAGESTYLE_IN_Classic] as bool?);
             if (res.HasValue)
