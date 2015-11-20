@@ -77,11 +77,18 @@ namespace KeePass
 
         private void browser_Loaded(object sender, RoutedEventArgs e)
         {
-            var url = new Uri(
-                NavigationContext.QueryString["url"],
-                UriKind.Absolute);
+            Uri uri;
 
-            browser.Navigate(url);
+            if (Uri.TryCreate(NavigationContext.QueryString["url"]?.Trim(), UriKind.Absolute, out uri))
+            {
+                browser.Navigate(uri);
+            }
+            else
+            {
+                MessageBox.Show(Strings.Error_BadURL);
+                NavigationService.GoBack();
+            }
+
         }
 
         private void browser_Navigated(object sender, NavigationEventArgs e)
@@ -96,7 +103,7 @@ namespace KeePass
             {
                 browser.InvokeScript("eval", "history.go(-1)");
             }
-            catch {}
+            catch { }
         }
 
         private void cmdPassword_Click(object sender, EventArgs e)

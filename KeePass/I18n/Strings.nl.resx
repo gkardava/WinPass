@@ -452,4 +452,7 @@ Het installatie ID dat doorgegeven wordt is:</value>
 	<data name="SetKeyFile" xml:space="preserve">
 		<value>sleutelbestand</value>
 	</data>
+	<data name="Error_BadURL" xml:space="preserve">
+		<value>Het formaat van de URI kon niet worden vastgesteld.</value>
+	</data>
 </root>

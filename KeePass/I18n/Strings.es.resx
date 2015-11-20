@@ -462,4 +462,7 @@ Su ID de instalación que será recolectado es:</value>
 	<data name="SetKeyFile" xml:space="preserve">
 		<value>archivo de clave</value>
 	</data>
+	<data name="Error_BadURL" xml:space="preserve">
+		<value>El formato de la URI no se pudo determinar.</value>
+	</data>
 </root>

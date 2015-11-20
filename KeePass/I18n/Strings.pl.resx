@@ -452,4 +452,7 @@ Twój identyfikator instalacji to:</value>
 	<data name="SetKeyFile" xml:space="preserve">
 		<value>plik klucza</value>
 	</data>
+	<data name="Error_BadURL" xml:space="preserve">
+		<value>Format URI nie udało się ustalić.</value>
+	</data>
 </root>

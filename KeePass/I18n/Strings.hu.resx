@@ -452,4 +452,7 @@ Your installation ID that will be collected is:</value>
 	<data name="SetKeyFile" xml:space="preserve">
 		<value>kulcsfájllal</value>
 	</data>
+	<data name="Error_BadURL" xml:space="preserve">
+		<value>A formátum a URI nem lehetett meghatározni.</value>
+	</data>
 </root>

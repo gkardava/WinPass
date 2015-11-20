@@ -169,7 +169,8 @@ namespace KeePass.IO.Data
         }
 
         public Entry()
-            : this(new Field[0]) { }
+            : this(new Field[0])
+        { }
 
         public void Add(Field field)
         {
@@ -219,7 +220,7 @@ namespace KeePass.IO.Data
                     TryGet(key), StringComparison
                         .InvariantCultureIgnoreCase);
             }
-
+            //fix url path
             return url;
         }
 

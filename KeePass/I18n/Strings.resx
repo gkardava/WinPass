@@ -636,4 +636,7 @@ Do you want WinPass to append ".doc" to your database name and then download it?
 	<data name="SetKeyFile" xml:space="preserve">
     <value>key file</value>
   </data>
+	<data name="Error_BadURL" xml:space="preserve">
+    <value>The format of the URI could not be determined.</value>
+  </data>
 </root>

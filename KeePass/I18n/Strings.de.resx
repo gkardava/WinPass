@@ -530,4 +530,7 @@ Die aktuelle Installations-ID lautet:</value>
 	<data name="SetKeyFile" xml:space="preserve">
 		<value>Schlüsseldatei</value>
 	</data>
+	<data name="Error_BadURL" xml:space="preserve">
+		<value>Das Format der URI nicht bestimmt werden konnte.</value>
+	</data>
 </root>

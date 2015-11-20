@@ -538,6 +538,15 @@ namespace KeePass.I18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The format of the URI could not be determined..
+        /// </summary>
+        public static string Error_BadURL {
+            get {
+                return ResourceManager.GetString("Error_BadURL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm your password.
         /// </summary>
         public static string GlobalPass_Confirm {
@@ -944,7 +953,7 @@ namespace KeePass.I18n {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Set key file.
+        ///   Looks up a localized string similar to key file.
         /// </summary>
         public static string SetKeyFile {
             get {

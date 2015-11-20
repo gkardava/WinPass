@@ -527,4 +527,7 @@ Vill du att WinPass lägger till ".doc" till din databasnamn och sedan hämta de
 	<data name="SetKeyFile" xml:space="preserve">
 		<value>nyckelfilen</value>
 	</data>
+	<data name="Error_BadURL" xml:space="preserve">
+		<value>Formatet på URI kunde inte fastställas.</value>
+	</data>
 </root>
