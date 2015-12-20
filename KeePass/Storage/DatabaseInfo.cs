@@ -24,8 +24,8 @@ namespace KeePass.Storage
         {
             unchecked
             {
-              
-                return  (Folder != null ? Folder.GetHashCode() : 0);
+
+                return (Folder != null ? Folder.GetHashCode() : 0);
             }
         }
 
@@ -257,8 +257,11 @@ namespace KeePass.Storage
             using (var store = IsolatedStorageFile
                 .GetUserStoreForApplication())
             {
+                if (!store.FileExists(DatabasePath))
+                    return OpenDbResults.CorruptedFile;
+
                 using (var fs = store.OpenFile(
-                    DatabasePath, FileMode.Open))
+                    DatabasePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Read))
                 {
                     DbPersistentData xml;
 
@@ -577,7 +580,7 @@ namespace KeePass.Storage
 
             writer.Flush();
         }
-        
+
         private void UpdateSavedPassword(IsolatedStorageFile store)
         {
             using (var fs = store.OpenFile(DatabasePath, FileMode.Open))
@@ -631,7 +634,7 @@ namespace KeePass.Storage
             if (ReferenceEquals(null, obj)) return false;
             if (ReferenceEquals(this, obj)) return true;
             if (obj.GetType() != this.GetType()) return false;
-            return Equals((DatabaseInfo) obj);
+            return Equals((DatabaseInfo)obj);
         }
     }
 }
