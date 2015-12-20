@@ -147,7 +147,7 @@ namespace KeePass
                 {
                     if (ex.GetType() == typeof(DateTimeFormatException))
                     {
-                        MessageBox.Show(
+                        MessageBox.Show( 
                         Properties.Resources.CorruptedFile,
                         Properties.Resources.UnhandledExTitle, MessageBoxButton.OK);
                         return;
