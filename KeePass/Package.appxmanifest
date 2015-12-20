@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="36318gkardava.WinPass" Publisher="CN=E2407FAA-54A5-4FBE-A000-72A83BCEBA17" Version="1.1.0.13" />
+  <Identity Name="36318gkardava.WinPass" Publisher="CN=E2407FAA-54A5-4FBE-A000-72A83BCEBA17" Version="1.1.0.14" />
   <mp:PhoneIdentity PhoneProductId="6ba36dda-573b-46cf-b110-6beaaea81c98" PhonePublisherId="717c216b-d9a0-4b1c-9e9a-cd2e14391571" />
   <Properties>
     <DisplayName>WinPass</DisplayName>
@@ -16,7 +16,7 @@
   </Resources>
   <Applications>
     <Application Id="x607307a5ybd5ay4d39y9150y5e016c231373x" Executable="AGHost.exe" EntryPoint="MainPage.xaml">
-      <m3:VisualElements DisplayName="WinPass" Square150x150Logo="Assets\SquareTile150x150.png" Square44x44Logo="Assets\Logo.png" Description="Unofficial KeePass password manager client, compatible with KeePass 2.x for desktop." ForegroundText="light" BackgroundColor="#464646">
+      <m3:VisualElements DisplayName="WinPass" Square150x150Logo="Assets\SquareTile150x150.png" Square44x44Logo="Assets\Logo.png" Description="KeePass password manager client, compatible with KeePass 2.x for desktop." ForegroundText="light" BackgroundColor="#464646">
         <m3:DefaultTile Square71x71Logo="Assets\SquareTile71x71.png">
         </m3:DefaultTile>
         <m3:SplashScreen Image="Assets\Splashscreen.png" />
