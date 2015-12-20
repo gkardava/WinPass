@@ -11,6 +11,8 @@ using Windows.ApplicationModel.Activation;
 using System.Threading;
 using System.Globalization;
 using System.Collections.Generic;
+using KeePass.IO.Exceptions;
+
 namespace KeePass
 {
     public partial class App
@@ -119,10 +121,12 @@ namespace KeePass
         }
 
         private void Application_Closing(
-            object sender, ClosingEventArgs e) { }
+            object sender, ClosingEventArgs e)
+        { }
 
         private void Application_Deactivated(
-            object sender, DeactivatedEventArgs e) { }
+            object sender, DeactivatedEventArgs e)
+        { }
 
         private void Application_Launching(
             object sender, LaunchingEventArgs e)
@@ -141,6 +145,13 @@ namespace KeePass
             {
                 if (!Debugger.IsAttached)
                 {
+                    if (ex.GetType() == typeof(DateTimeFormatException))
+                    {
+                        MessageBox.Show(
+                        Properties.Resources.CorruptedFile,
+                        Properties.Resources.UnhandledExTitle, MessageBoxButton.OK);
+                        return;
+                    }
                     var response = MessageBox.Show(
                         Properties.Resources.UnhandledExPrompt,
                         Properties.Resources.UnhandledExTitle,

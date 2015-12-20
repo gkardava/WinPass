@@ -92,6 +92,7 @@
     </Compile>
     <Compile Include="Data\DatabaseConfiguration.cs" />
     <Compile Include="Data\Field.cs" />
+    <Compile Include="Exceptions\DateTimeException.cs" />
     <Compile Include="Utils\KeyFile.cs" />
     <Compile Include="Uuid.cs" />
     <Compile Include="Data\Database.cs" />

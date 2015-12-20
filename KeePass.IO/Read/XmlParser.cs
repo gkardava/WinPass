@@ -9,6 +9,7 @@ using System.Xml;
 using KeePass.IO.Data;
 using KeePass.IO.Utils;
 using System.Diagnostics;
+using KeePass.IO.Exceptions;
 
 namespace KeePass.IO.Read
 {
@@ -407,8 +408,14 @@ namespace KeePass.IO.Read
             {
                 if (subReader.Name != "LastModificationTime")
                     subReader.ReadToFollowing("LastModificationTime");
-
-                result = subReader.ReadElementContentAsDateTime();
+                try
+                {
+                    result = subReader.ReadElementContentAsDateTime();
+                }
+                catch (Exception ex)
+                {
+                    throw new DateTimeFormatException($"format exception read element content as date time", ex);
+                }
             }
 
             reader.ReadEndElement();
