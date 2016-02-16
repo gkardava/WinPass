@@ -17,7 +17,7 @@
             <!-- Spalten definieren -->
             <Grid.ColumnDefinitions>
                 <ColumnDefinition />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10000" />
             </Grid.ColumnDefinitions>
 
             <Grid.Resources>
