@@ -47,7 +47,12 @@ namespace KeePass.Sources.OneDrive
             _path = node.GetValue("id");
             _parent = node.GetValue("parent_id");
             _modified = node.GetValue("updated_time");
-            _isDir = "folder|album".Contains(node.GetValue("type")); // Show folder icon in case of folder/album
+            var type = node.GetValue("type");
+            if(string.IsNullOrEmpty(type))
+            {
+                type = "file";
+            }
+            _isDir = "folder|album".Contains(type); // Show folder icon in case of folder/album
             int.TryParse(node.GetValue("size"), out _size);
 
             Title = node.GetValue("name");
