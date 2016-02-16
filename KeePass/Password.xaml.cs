@@ -190,18 +190,12 @@ namespace KeePass
         private void txtPassword_DoubleTap(object sender, GestureEventArgs e)
         {
             txtPasswordtext.Text = txtPassword.Password;
-            txtPasswordtext.SelectAll();
             txtPassword.Visibility = Visibility.Collapsed;
             txtPasswordtext.Visibility = Visibility.Visible;
-
+            txtPasswordtext.Focus();
         }
 
-        private void txtPasswordtext_Tap(object sender, GestureEventArgs e)
-        {
-            txtPasswordtext.Visibility = Visibility.Collapsed;
-            txtPassword.Visibility = Visibility.Visible;
-            txtPassword.Focus();
-        }
+
         private void lnkLocal_Click(object sender, RoutedEventArgs e)
         {
             FileOpenPicker fileOpenPicker = new FileOpenPicker();
@@ -213,6 +207,11 @@ namespace KeePass
         private void buttonLoadMasterKey_Tap(object sender, GestureEventArgs e)
         {
             this.NavigateTo<Download>("type={0}&folder={1}", "key", _folder);
+        }
+
+        private void txtPasswordtext_KeyUp(object sender, KeyEventArgs e)
+        {
+            txtPassword.Password = txtPasswordtext.Text;
         }
     }
 }
