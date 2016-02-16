@@ -58,7 +58,7 @@ namespace KeePass.Sources.OneDrive
             Title = node.GetValue("name");
             Notes = GetRelativeTime(_modified);
             string iconStr = "";
-            iconStr = Title.EndsWith(".kdbx") // If its keepass database
+            iconStr = Title.EndsWith(".kdbx",StringComparison.InvariantCultureIgnoreCase) // If its keepass database
                 ? "keepasslogo"
                 : (_isDir
                     ? "folder"

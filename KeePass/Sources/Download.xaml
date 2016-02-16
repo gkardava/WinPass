@@ -5,7 +5,7 @@
     xmlns:keepass="clr-namespace:KeePass.Utils"
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
-    Style="{StaticResource KeePassPage}" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="728" d:DesignWidth="480">
+    Style="{StaticResource KeePassPage}" mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" d:DesignHeight="728" d:DesignWidth="480" Orientation="Portrait">
 
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <Grid.RowDefinitions>
@@ -21,9 +21,9 @@
         </StackPanel>
 
         <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <!--<HyperlinkButton Content="DropBox" Click="lnkDropBox_Click"
+            <HyperlinkButton Content="DropBox" Click="lnkDropBox_Click"
                              FontSize="{StaticResource PhoneFontSizeExtraLarge}" />
-            <TextBlock Text=" " />-->
+            <TextBlock Text=" " />
             <HyperlinkButton Content="OneDrive" Click="lnkOneDrive_Click"
                              FontSize="{StaticResource PhoneFontSizeExtraLarge}" />
             <TextBlock Text=" " />
