@@ -158,28 +158,15 @@ namespace KeePass
             MessageBox.Show(Properties.Resources.WarningStorePassword,
                 (string)chkStore.Content, MessageBoxButton.OK);
         }
-
-        private void txtPassword_KeyDown(
-            object sender, KeyEventArgs e)
-        {
-            if (!_cmdOpen.IsEnabled)
-                return;
-
-            if (e.IsEnter())
-                OpenDatabase();
-        }
-
+        
         private void txtPassword_Loaded(
             object sender, RoutedEventArgs e)
         {
-            txtPassword.Focus();
-        }
 
-        private void txtPassword_PasswordChanged(
-            object sender, RoutedEventArgs e)
-        {
-            UpdatePasswordStatus();
+            txtPassword.Focus();
+            txtPasswordtext_KeyUp(null, null);
         }
+        
 
         private class OpenArgs
         {
@@ -204,6 +191,14 @@ namespace KeePass
         private void txtPasswordtext_KeyUp(object sender, KeyEventArgs e)
         {
             txtPassword.Password = txtPasswordtext.Text = (sender is TextBox ? txtPasswordtext.Text : txtPassword.Password);
+
+            UpdatePasswordStatus();
+
+            if (!_cmdOpen.IsEnabled)
+                return;
+
+            if (e!=null && e.IsEnter())
+                OpenDatabase();
         }
 
         private void Image_Tap(object sender, GestureEventArgs e)
@@ -225,5 +220,6 @@ namespace KeePass
             to.Focus();
             from.Visibility = Visibility.Collapsed;
         }
+        
     }
 }
