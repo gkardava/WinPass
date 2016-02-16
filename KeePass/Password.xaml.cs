@@ -10,6 +10,8 @@ using KeePass.Sources;
 using KeePass.Storage;
 using KeePass.Utils;
 using Microsoft.Phone.Shell;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace KeePass
 {
@@ -34,7 +36,7 @@ namespace KeePass
             _wkOpen.RunWorkerCompleted += _wkOpen_RunWorkerCompleted;
 
 
-            imgWarning.Source = ThemeData.GetImageSource("warning");
+            imgWarning.Source = ThemeData.GetImageSource("information");
             imgWarning.Visibility = GlobalPassHandler.Instance.HasGlobalPass
                 ? Visibility.Collapsed : Visibility.Visible;
         }
@@ -186,16 +188,6 @@ namespace KeePass
             public string Password { get; set; }
             public bool SavePassword { get; set; }
         }
-
-        private void txtPassword_DoubleTap(object sender, GestureEventArgs e)
-        {
-            txtPasswordtext.Text = txtPassword.Password;
-            txtPassword.Visibility = Visibility.Collapsed;
-            txtPasswordtext.Visibility = Visibility.Visible;
-            txtPasswordtext.Focus();
-        }
-
-
         private void lnkLocal_Click(object sender, RoutedEventArgs e)
         {
             FileOpenPicker fileOpenPicker = new FileOpenPicker();
@@ -211,7 +203,27 @@ namespace KeePass
 
         private void txtPasswordtext_KeyUp(object sender, KeyEventArgs e)
         {
-            txtPassword.Password = txtPasswordtext.Text;
+            txtPassword.Password = txtPasswordtext.Text = (sender is TextBox ? txtPasswordtext.Text : txtPassword.Password);
+        }
+
+        private void Image_Tap(object sender, GestureEventArgs e)
+        {
+            if (txtPassword.Visibility == Visibility.Collapsed)
+            {
+                changeVisibiliteText(txtPasswordtext, txtPassword);
+                eyeImage.Source = new BitmapImage(new Uri("/Images/eyeOpen.png", UriKind.Relative));
+            }
+            else {
+                changeVisibiliteText(txtPassword, txtPasswordtext);
+                eyeImage.Source = new BitmapImage(new Uri("/Images/eyeClose.png",UriKind.Relative));
+                txtPasswordtext.SelectionStart = txtPasswordtext.Text.Length;
+            }
+        }
+        private void changeVisibiliteText(Control from, Control to)
+        {
+            to.Visibility = Visibility.Visible;
+            to.Focus();
+            from.Visibility = Visibility.Collapsed;
         }
     }
 }

@@ -567,6 +567,10 @@
     <Content Include="Images\edit.dark.png" />
     <Content Include="Images\edit.light.png" />
     <Content Include="Images\eintrag.png" />
+    <Content Include="Images\eyeOpen.png" />
+    <Content Include="Images\eyeClose.png" />
+    <Content Include="Images\information.dark.png" />
+    <Content Include="Images\information.light.png" />
     <Content Include="Images\keepasslogo.dark.png" />
     <Content Include="Images\keepasslogo.light.png" />
     <Content Include="Images\KeePass\Modern\dark\56.png" />
@@ -840,8 +844,6 @@
     <Content Include="Images\search.png" />
     <Content Include="Images\unlock.dark.png" />
     <Content Include="Images\unlock.light.png" />
-    <Content Include="Images\warning.dark.png" />
-    <Content Include="Images\warning.light.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Generator\Resources.de.resx">
