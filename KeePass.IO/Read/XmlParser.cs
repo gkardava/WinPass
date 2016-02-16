@@ -408,14 +408,10 @@ namespace KeePass.IO.Read
             {
                 if (subReader.Name != "LastModificationTime")
                     subReader.ReadToFollowing("LastModificationTime");
-                try
-                {
-                    result = subReader.ReadElementContentAsDateTime();
-                }
-                catch (Exception ex)
-                {
-                    throw new DateTimeFormatException($"format exception read element content as date time", ex);
-                }
+                string date = "";
+                    date = subReader.ReadElementContentAsString();
+                if (!DateTime.TryParse(date, out result))
+                    throw new DateTimeFormatException($"{date} is invalid date format");
             }
 
             reader.ReadEndElement();
