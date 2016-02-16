@@ -544,7 +544,7 @@ namespace KeePass.Storage
         /// </summary>
         /// <param name="store">The store.</param>
         /// <param name="xml">The XML.</param>
-        private void Save(IsolatedStorageFile store,
+        private async void Save(IsolatedStorageFile store,
             DbPersistentData xml)
         {
             if (!store.DirectoryExists(Folder))
@@ -562,7 +562,8 @@ namespace KeePass.Storage
             using (var fs = store.CreateFile(MasterPasswordPath))
             {
                 var data = xml.MasterKey;
-                fs.Write(data, 0, data.Length);
+                await fs.WriteAsync(data, 0, data.Length);
+                
             }
         }
 
