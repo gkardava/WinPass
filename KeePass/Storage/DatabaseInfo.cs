@@ -336,28 +336,16 @@ namespace KeePass.Storage
             {
                 if (!store.DirectoryExists(Folder))
                     store.CreateDirectory(Folder);
-
-
-
-                try
-                {
-                    // Clear password if it was not marked as "save"
-                    var p = GetSavedPassword(store);
-                    if (p.MasterKey == null || p.MasterKey.Length == 0)
-                        ClearPassword(store);
-                }
-                catch (FileNotFoundException ex)
-                {
-                    ClearPassword(store);
-                }
+                ClearPassword(store);
                 Details = details;
                 SaveDetails(store);
-
                 using (var fs = store.CreateFile(DatabasePath))
                     BufferEx.CopyStream(data, fs);
             }
+            
         }
 
+     
         public void SetDatabase(Action<Stream> action)
         {
             if (action == null)
@@ -563,7 +551,7 @@ namespace KeePass.Storage
             {
                 var data = xml.MasterKey;
                 await fs.WriteAsync(data, 0, data.Length);
-                
+
             }
         }
 
@@ -578,7 +566,6 @@ namespace KeePass.Storage
             var writer = new StreamWriter(fs);
             var serializer = new JsonSerializer();
             serializer.Serialize(writer, Details);
-
             writer.Flush();
         }
 
