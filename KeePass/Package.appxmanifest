@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest" xmlns:m3="http://schemas.microsoft.com/appx/2014/manifest" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest">
-  <Identity Name="36318gkardava.WinPass" Publisher="CN=E2407FAA-54A5-4FBE-A000-72A83BCEBA17" Version="1.1.0.14" />
+  <Identity Name="36318gkardava.WinPass" Publisher="CN=E2407FAA-54A5-4FBE-A000-72A83BCEBA17" Version="1.1.0.15" />
   <mp:PhoneIdentity PhoneProductId="6ba36dda-573b-46cf-b110-6beaaea81c98" PhonePublisherId="717c216b-d9a0-4b1c-9e9a-cd2e14391571" />
   <Properties>
     <DisplayName>WinPass</DisplayName>
