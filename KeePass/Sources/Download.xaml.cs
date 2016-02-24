@@ -173,8 +173,6 @@ namespace KeePass.Sources
 
         private void lnkDropBox_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show(@"stop. please don't use this feature right now. Press ok to access your dropbox file.",
-                        "",MessageBoxButton.OKCancel) == MessageBoxResult.OK)
                 Navigate<DropBox.DropBoxAuth>();
         }
 
