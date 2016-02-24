@@ -55,7 +55,7 @@ namespace KeePass.Sources.OneDrive
             _isDir = "folder|album".Contains(type); // Show folder icon in case of folder/album
             int.TryParse(node.GetValue("size"), out _size);
 
-            Title = node.GetValue("name");
+            Title = node.GetValue("name") ?? "";
             Notes = GetRelativeTime(_modified);
             string iconStr = "";
             iconStr = Title.EndsWith(".kdbx",StringComparison.InvariantCultureIgnoreCase) // If its keepass database
