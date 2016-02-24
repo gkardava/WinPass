@@ -261,11 +261,19 @@ namespace KeePass
 
                 return;
             }
-
-            new WebBrowserTask
+            Uri uri;
+            if (Uri.TryCreate(url, UriKind.Absolute, out uri))
             {
-                Uri = new Uri(url),
-            }.Show();
+                new WebBrowserTask
+                {
+                    Uri = uri,
+                }.Show();
+            }
+            else
+            {
+                MessageBox.Show(Strings.Error_BadURL);
+                NavigationService.GoBack();
+            }
         }
 
         private void Save()
