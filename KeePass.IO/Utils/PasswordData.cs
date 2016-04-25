@@ -2,6 +2,9 @@
 using System.Security.Cryptography;
 using System.Text;
 using KeePass.IO.Data;
+using Windows.Security.Cryptography.Core;
+using Windows.Security.Cryptography;
+using Windows.Storage.Streams;
 
 namespace KeePass.IO.Utils
 {
@@ -41,25 +44,22 @@ namespace KeePass.IO.Utils
 
         public byte[] TransformKey(byte[] transformSeed, int rounds)
         {
-            var block = BufferEx.Clone(_hash);
+            var aesEcb = SymmetricKeyAlgorithmProvider
+                .OpenAlgorithm(SymmetricAlgorithmNames.AesEcb);
+            var key = aesEcb.CreateSymmetricKey(
+                CryptographicBuffer.CreateFromByteArray(transformSeed));
 
-            var aes = new AesManaged
+            IBuffer blockBuffer = CryptographicBuffer
+                .CreateFromByteArray(_hash);
+
+            for (var i = 0; i < rounds; i++)
             {
-                KeySize = 256,
-                IV = new byte[16],
-                Key = transformSeed,
-            };
-
-            for (var i = 1; i <= rounds; i++)
-            {
-                // ECB mode is not available in Silverlight
-                // Always use a new encrytor to emulate ECB mode.
-
-                aes.CreateEncryptor().TransformBlock(
-                    block, 0, 16, block, 0);
-                aes.CreateEncryptor().TransformBlock(
-                    block, 16, 16, block, 16);
+                blockBuffer = CryptographicEngine
+                    .Encrypt(key, blockBuffer, null);
             }
+
+            byte[] block = null;
+            CryptographicBuffer.CopyToByteArray(blockBuffer, out block);
 
             return BufferEx.GetHash(block);
         }
