@@ -12,7 +12,7 @@ namespace KeePass.Utils
             if (NetworkInterface.GetIsNetworkAvailable())
                 return true;
 
-            MessageBox.Show(Resources.NoNetwork);
+            Deployment.Current.Dispatcher.BeginInvoke(() => { MessageBox.Show(Resources.NoNetwork); });
             return false;
         }
     }
