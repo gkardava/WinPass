@@ -155,7 +155,7 @@ Es ist möglich, dass ihr Telefon dem SSL Zertifikat nicht vertraut.
 Wollen Sie mehr darüber erfahren?</value>
   </data>
   <data name="InvalidCertificateUrl" xml:space="preserve">
-    <value>http://7pass.wordpress.com/2011/01/09/faq-updated-why-7pass-says-my-database-signature-is-invalid/</value>
+    <value>https://en.wikipedia.org/wiki/Certificate_authority</value>
   </data>
   <data name="NoNetwork" xml:space="preserve">
     <value>Es steht keine Internetverbindung zur Verfügung.

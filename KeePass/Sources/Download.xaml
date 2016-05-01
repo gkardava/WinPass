@@ -30,9 +30,9 @@
             <HyperlinkButton Content="WebDAV" Click="lnkWebDav_Click"
                              FontSize="{StaticResource PhoneFontSizeExtraLarge}" />
             <TextBlock Text=" " />
-            <!--<HyperlinkButton Content="{Binding Path=Strings.Download_Web, Source={StaticResource UiStrings}}"
+            <HyperlinkButton Content="{Binding Path=Strings.Download_Web, Source={StaticResource UiStrings}}"
                              Click="lnkWeb_Click" FontSize="{StaticResource PhoneFontSizeExtraLarge}" />
-            <TextBlock Text=" " />-->
+            <TextBlock Text=" " />
             <HyperlinkButton x:Name="lnkLocal" FontSize="{StaticResource PhoneFontSizeExtraLarge}"
                              Content="{Binding Path=Strings.Download_LocalFile, Source={StaticResource UiStrings}}" Click="lnkLocal_Click" />
             <TextBlock Text=" " />

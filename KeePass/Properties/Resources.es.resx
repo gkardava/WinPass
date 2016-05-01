@@ -157,7 +157,7 @@ Es posible que el certificado SSL del servidor no provenga de una entidad certif
 ¿Desea leer más acerca de esto?</value>
   </data>
   <data name="InvalidCertificateUrl" xml:space="preserve">
-    <value>http://7pass.wordpress.com/2011/01/09/faq-updated-why-7pass-says-my-database-signature-is-invalid/</value>
+    <value>https://en.wikipedia.org/wiki/Certificate_authority</value>
   </data>
   <data name="NoNetwork" xml:space="preserve">
     <value>No hay una conexión a internet disponible.
