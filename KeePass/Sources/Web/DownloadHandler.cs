@@ -53,8 +53,7 @@ namespace KeePass.Sources.Web
         /// instance containing the event data.</param>
         protected virtual void OnCompleted(EventArgs e)
         {
-            if (Completed != null)
-                Completed(this, e);
+            Completed?.Invoke(this, e);
         }
 
         /// <summary>
@@ -64,8 +63,7 @@ namespace KeePass.Sources.Web
         /// instance containing the event data.</param>
         protected virtual void OnLinksDetected(EventArgs e)
         {
-            if (LinksDetected != null)
-                LinksDetected(this, e);
+            LinksDetected?.Invoke(this, e);
         }
 
         private static bool DetectCertificateError(
@@ -168,11 +166,15 @@ namespace KeePass.Sources.Web
                             if (result != MessageBoxResult.OK)
                                 return;
 
-                            new WebBrowserTask
+                            try
                             {
-                                Uri = new Uri(Resources
+                                new WebBrowserTask
+                                {
+                                    Uri = new Uri(Resources
                                     .InvalidCertificateUrl),
-                            }.Show();
+                                }.Show();
+                            }
+                            catch { }
                         });
                     }
 

@@ -150,7 +150,7 @@
 გსურთმეტი ინფორმაციის გაგება ამის შესახებ?</value>
   </data>
   <data name="InvalidCertificateUrl" xml:space="preserve">
-    <value>https://en.wikipedia.org/wiki/Certificate_authority</value>
+    <value>https://support.microsoft.com/en-us/kb/813618</value>
   </data>
   <data name="NoNetwork" xml:space="preserve">
     <value>ინერნეტი არაა ხელმისაწვდომი, გთხოვთ სცადოთ მოგვიანებით.</value>

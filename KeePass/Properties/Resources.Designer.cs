@@ -302,7 +302,7 @@ namespace KeePass.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to https://en.wikipedia.org/wiki/Certificate_authority.
+        ///   Looks up a localized string similar to https://support.microsoft.com/en-us/kb/813618.
         /// </summary>
         internal static string InvalidCertificateUrl {
             get {

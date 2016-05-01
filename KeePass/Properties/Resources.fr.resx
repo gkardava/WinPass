@@ -154,7 +154,7 @@ Attention: WinPass ne supporte pas les fournisseurs de mots de passe de compte W
 Il est possible que le certificat SSL de votre serveur ne soit pas de confiance pour votre téléphone. Voulez-vous en savoir plus?</value>
   </data>
   <data name="InvalidCertificateUrl" xml:space="preserve">
-    <value>https://en.wikipedia.org/wiki/Certificate_authority</value>
+    <value>https://support.microsoft.com/en-us/kb/813618</value>
   </data>
   <data name="NoNetwork" xml:space="preserve">
     <value>Pas de connexion Internet disponible.

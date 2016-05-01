@@ -817,6 +817,15 @@ namespace KeePass.I18n {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Not found, try again or check parameters..
+        /// </summary>
+        public static string NotFound {
+            get {
+                return ResourceManager.GetString("NotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Due to OneDrive limitation, your database has to be renamed to &quot;.doc&quot; extension.
         ///Do you want WinPass to append &quot;.doc&quot; to your database name and then download it?.
         /// </summary>

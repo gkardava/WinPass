@@ -455,4 +455,7 @@
 	<data name="Error_BadURL" xml:space="preserve">
 		<value>Формат URI не может быть определена</value>
 	</data>
+	<data name="NotFound" xml:space="preserve">
+		<value>Не найдено, попробуйте еще раз или проверить параметры.</value>
+	</data>
 </root>

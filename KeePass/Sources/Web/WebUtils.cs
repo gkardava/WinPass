@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Net;
 using Newtonsoft.Json;
+using System.Windows;
+using KeePass.I18n;
 
 namespace KeePass.Sources.Web
 {
@@ -31,16 +33,20 @@ namespace KeePass.Sources.Web
         {
             var request = WebRequest.CreateHttp(url);
             request.UserAgent = "WinPass";
-
             if (credentials != null)
                 request.Credentials = credentials;
-
-            request.BeginGetResponse(ar =>
-                report(request, () => (HttpWebResponse)
-                    request.EndGetResponse(ar)),
-                null);
+            request.BeginGetResponse(
+                new AsyncCallback((result) =>
+                {
+                    report(request, () =>
+                    {
+                        var httpRes = result.AsyncState as HttpWebRequest;
+                        return httpRes.EndGetResponse(result) as HttpWebResponse;
+                    });
+                }),
+                request);
         }
-        
+
         public static string Serialize(WebRequest request)
         {
             if (request == null)

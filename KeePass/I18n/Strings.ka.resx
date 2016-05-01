@@ -639,4 +639,7 @@ Do you want WinPass to append ".doc" to your database name and then download it?
 	<data name="Error_BadURL" xml:space="preserve">
 		<value>მისამართის ფორმატის იდენტიფიკაცია შეუძლებელია.</value>
 	</data>
+	<data name="NotFound" xml:space="preserve">
+		<value>ვერ მოიძებნა. სცადეთ ხელახლა ან გადაამოწმეთ პარამეტრები.</value>
+	</data>
 </root>
