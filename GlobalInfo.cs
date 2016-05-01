@@ -6,9 +6,9 @@ using System.Resources;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Sebastian Pfohl")]
+[assembly: AssemblyCompany("Home")]
 [assembly: AssemblyProduct("KeePass")]
-[assembly: AssemblyCopyright("Copyright © Sebastian Pfohl 2015")]
+[assembly: AssemblyCopyright("Copyright © Home 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
