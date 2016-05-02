@@ -1,0 +1,42 @@
+﻿<keepass:KeePassPage 
+	x:Class="KeePass.AnalyticsSettings"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:keepass="clr-namespace:KeePass.Utils"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+	Style="{StaticResource KeePassPage}" Orientation="Portrait">
+
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="ApplicationTitle" Text="{StaticResource AppName}"
+				Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock x:Name="PageTitle" Style="{StaticResource PhoneTextTitle1Style}" Margin="9,-7,0,0"
+                       Text="{Binding Path=Strings.AnalyticsSettings_PageTitle, Source={StaticResource UiStrings}}" />
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" Margin="12,0,12,0">
+            <StackPanel Grid.Row="1" Margin="12,0,12,0">
+                <TextBlock TextWrapping="Wrap"
+                           Text="{Binding Path=Strings.AnalyticsSettings_Policy, Source={StaticResource UiStrings}}" />
+                <TextBlock Name="lblDevice" />
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True">
+            <shell:ApplicationBarIconButton
+                IconUri="/Images/check.png"
+                Text="[Allow]" Click="cmdAllow_Click" />
+            <shell:ApplicationBarIconButton
+                IconUri="/Images/close.dark.png"
+                Text="[Disable]" Click="cmdDisable_Click" />
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
+</keepass:KeePassPage>

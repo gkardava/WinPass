@@ -55,6 +55,12 @@ namespace KeePass
 
             SourceCapabilityUpdater.Update();
 
+            //if (AppSettings.Instance.AllowAnalytics == null)
+            //{
+            //    _moved = true;
+            //    this.NavigateTo<AnalyticsSettings>();
+            //    return;
+            //}
             Cache.Clear();
 
             if (NavigationContext.QueryString.TryGetValue("sync", out syncdb))
