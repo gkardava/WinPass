@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Security.Cryptography;
 using System.Text;
 using KeePass.IO.Data;
 using Windows.Security.Cryptography.Core;
 using Windows.Security.Cryptography;
-using Windows.Storage.Streams;
+using Org.BouncyCastle.Crypto.Parameters;
+using Org.BouncyCastle.Crypto.Engines;
 
 namespace KeePass.IO.Utils
 {
@@ -44,22 +44,21 @@ namespace KeePass.IO.Utils
 
         public byte[] TransformKey(byte[] transformSeed, int rounds)
         {
+            var block = BufferEx.Clone(_hash);
+
+            var cipher = new AesEngine();
+            cipher.Init(true, new KeyParameter(transformSeed));
+
             var aesEcb = SymmetricKeyAlgorithmProvider
                 .OpenAlgorithm(SymmetricAlgorithmNames.AesEcb);
             var key = aesEcb.CreateSymmetricKey(
                 CryptographicBuffer.CreateFromByteArray(transformSeed));
 
-            IBuffer blockBuffer = CryptographicBuffer
-                .CreateFromByteArray(_hash);
-
-            for (var i = 0; i < rounds; i++)
+            for (int i = 0; i < rounds; i++)
             {
-                blockBuffer = CryptographicEngine
-                    .Encrypt(key, blockBuffer, null);
+                cipher.ProcessBlock(block, 0, block, 0);
+                cipher.ProcessBlock(block, 16, block, 16);
             }
-
-            byte[] block = null;
-            CryptographicBuffer.CopyToByteArray(blockBuffer, out block);
 
             return BufferEx.GetHash(block);
         }
