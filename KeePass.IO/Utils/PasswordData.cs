@@ -1,7 +1,10 @@
 ﻿using System;
-using System.Security.Cryptography;
 using System.Text;
 using KeePass.IO.Data;
+using Windows.Security.Cryptography.Core;
+using Windows.Security.Cryptography;
+using Org.BouncyCastle.Crypto.Parameters;
+using Org.BouncyCastle.Crypto.Engines;
 
 namespace KeePass.IO.Utils
 {
@@ -43,22 +46,18 @@ namespace KeePass.IO.Utils
         {
             var block = BufferEx.Clone(_hash);
 
-            var aes = new AesManaged
-            {
-                KeySize = 256,
-                IV = new byte[16],
-                Key = transformSeed,
-            };
+            var cipher = new AesEngine();
+            cipher.Init(true, new KeyParameter(transformSeed));
 
-            for (var i = 1; i <= rounds; i++)
-            {
-                // ECB mode is not available in Silverlight
-                // Always use a new encrytor to emulate ECB mode.
+            var aesEcb = SymmetricKeyAlgorithmProvider
+                .OpenAlgorithm(SymmetricAlgorithmNames.AesEcb);
+            var key = aesEcb.CreateSymmetricKey(
+                CryptographicBuffer.CreateFromByteArray(transformSeed));
 
-                aes.CreateEncryptor().TransformBlock(
-                    block, 0, 16, block, 0);
-                aes.CreateEncryptor().TransformBlock(
-                    block, 16, 16, block, 16);
+            for (int i = 0; i < rounds; i++)
+            {
+                cipher.ProcessBlock(block, 0, block, 0);
+                cipher.ProcessBlock(block, 16, block, 16);
             }
 
             return BufferEx.GetHash(block);
