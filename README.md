@@ -1,31 +1,15 @@
 A unofficial KeePass password manager client for Windows Mobile, compatible with KeePass 2.x for desktop.
+find app in windows store: https://www.microsoft.com/en-us/store/apps/winpass/9nblggh5z10k
 
-Support Info:
- - This repository is a continuation fork of the project: https://github.com/bilbob74/8pass
-
-<img src="https://cloud.githubusercontent.com/assets/1022399/6726606/aa68b186-ce19-11e4-9f1d-1a278ac82c2b.png" width="200">
-<img src="https://cloud.githubusercontent.com/assets/1022399/6726604/aa64d714-ce19-11e4-923c-66d46377ccc0.png" width="200">
-<img src="https://cloud.githubusercontent.com/assets/1022399/6726608/aa6d9f02-ce19-11e4-95b3-b1c51a798588.png" width="200">
-<img src="https://cloud.githubusercontent.com/assets/1022399/6726609/aa6f0626-ce19-11e4-996e-d3166d292d70.png" width="200">
-<img src="https://cloud.githubusercontent.com/assets/1022399/6726605/aa679de6-ce19-11e4-8a7d-aa44df0de0e0.png" width="200">
-<img src="https://cloud.githubusercontent.com/assets/1022399/6726607/aa6c9f08-ce19-11e4-9d4a-f5b71a3dc6dc.png" width="200">
+<img src="https://raw.githubusercontent.com/gkardava/WinPass/master/MarketPlace/Screens/wp_ss_20160526_0001.png" width="200">
+<img src="https://raw.githubusercontent.com/gkardava/WinPass/master/MarketPlace/Screens/wp_ss_20160526_0002.png" width="200">
+<img src="https://raw.githubusercontent.com/gkardava/WinPass/master/MarketPlace/Screens/wp_ss_20160526_0003.png" width="200">
+<img src="https://raw.githubusercontent.com/gkardava/WinPass/master/MarketPlace/Screens/wp_ss_20160526_0004.png" width="200">
+<img src="https://raw.githubusercontent.com/gkardava/WinPass/master/MarketPlace/Screens/wp_ss_20160526_0007.png" width="200">
+<img src="https://raw.githubusercontent.com/gkardava/WinPass/master/MarketPlace/Screens/wp_ss_20160526_0008.png" width="200">
+<img src="https://raw.githubusercontent.com/gkardava/WinPass/master/MarketPlace/Screens/wp_ss_20160526_0009.png" width="200">
 
 
-Version 4.3
-Bugfixes:
-<ul>
-<li> Fixed the way password cleaning was done after the database synchronization</li>
-</ul>
-
-Also naming changes from 8Pass to WinPass
-
-Version 4.2
-Bugfixes:
-<ul>
-<li> Fixed Bug, which occurs by Sync a Database to Cloudstorage resulting in every time having a conflicted copy</li>
-<li> Fixed Bug, not encoding Password Strings correctly, so that copying this to the Clipboard and pasting it in the Target Window will result in wrong Password</li>
-<li> Some other Fixes and Performance Tweaks</li>
-</ul>
 
 New Features:
 <ul>
@@ -36,29 +20,8 @@ New Features:
 <li> Properties Page for every Database. With this you could not only rename the DB locally, you could also change the Cloud Credentials or the URL (Specially for WebDAV and WebServer)</li>
 <li> Timestamp of the Actual DB on every Page</li>
 <li> Smaller Contextmenu on DB Page, the Functions are now on a Properties Page </li>
-<li> Added a FileAssociation for KDBX Files on WP8 & WP8.1</li>
+<li> Added a FileAssociation for KDBX Files on WP8, WP8.1, WP10</li>
 <li> Added Local File Support. Now you can open Files from a Folder on your Device or any App that acts as a Target for FileOpenPicker</li>
 </ul>
-
-Version 3.6:
- - Removed .doc renaming on SkyDrive.
- - Upgraded SkyDrive OAuth 2.0.
- - Limit file size to 10MB.
- - Updated Box.net WebDAV url.
- - Fixed folder name not displayed on WebDAV.
- 
-Version 3.5:
- - Fixed SkyDrive synchronization
- 
-Version 3.4:
- - Added OneDrive support.
- - Removed usage of device ID.
-
-Version 3.3:
- - Fixed WebDAV bug.
- - Fixed global pass not displayed on app switch.
- - Added field editing and asterisks support.
- - Fixed protected field textbox display in light theme.
-
 Keywords:
-KeePass password dropbox encrypt 7Pass encryption privacy webdav synchronize WinPass
+KeePass password dropbox encrypt 7Pass encryption privacy webdav synchronize Ondrive WinPass 
