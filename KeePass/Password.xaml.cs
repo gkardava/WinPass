@@ -141,7 +141,7 @@ namespace KeePass
 
         private void cmdClear_Click(object sender, EventArgs e)
         {
-            txtPassword.Password = string.Empty;
+            txtPasswordtext.Text = txtPassword.Password = string.Empty;
         }
 
         private void cmdOpen_Click(object sender, EventArgs e)
@@ -158,7 +158,7 @@ namespace KeePass
             MessageBox.Show(Properties.Resources.WarningStorePassword,
                 (string)chkStore.Content, MessageBoxButton.OK);
         }
-        
+
         private void txtPassword_Loaded(
             object sender, RoutedEventArgs e)
         {
@@ -166,7 +166,7 @@ namespace KeePass
             txtPassword.Focus();
             txtPasswordtext_KeyUp(null, null);
         }
-        
+
 
         private class OpenArgs
         {
@@ -197,7 +197,7 @@ namespace KeePass
             if (!_cmdOpen.IsEnabled)
                 return;
 
-            if (e!=null && e.IsEnter())
+            if (e != null && e.IsEnter())
                 OpenDatabase();
         }
 
@@ -208,9 +208,10 @@ namespace KeePass
                 changeVisibiliteText(txtPasswordtext, txtPassword);
                 eyeImage.Source = new BitmapImage(new Uri("/Images/eyeOpen.png", UriKind.Relative));
             }
-            else {
+            else
+            {
                 changeVisibiliteText(txtPassword, txtPasswordtext);
-                eyeImage.Source = new BitmapImage(new Uri("/Images/eyeClose.png",UriKind.Relative));
+                eyeImage.Source = new BitmapImage(new Uri("/Images/eyeClose.png", UriKind.Relative));
                 txtPasswordtext.SelectionStart = txtPasswordtext.Text.Length;
             }
         }
@@ -220,6 +221,6 @@ namespace KeePass
             to.Focus();
             from.Visibility = Visibility.Collapsed;
         }
-        
+
     }
 }

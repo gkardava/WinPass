@@ -733,6 +733,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <Content Include="Logo.png" />
+    <Content Include="SplashScreenImage.jpg" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
