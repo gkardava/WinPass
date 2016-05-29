@@ -75,7 +75,7 @@
                         <HyperlinkButton Content="DeF-ault" TargetName="_blank" NavigateUri="https://github.com/DeF-ault" />
                         <HyperlinkButton Content="barneh" TargetName="_blank" NavigateUri="https://github.com/barneh" />
                         <HyperlinkButton Content="mroddy" TargetName="_blank" NavigateUri="https://github.com/mroddy" />
-
+                        <HyperlinkButton Content="Melvyn Laïly" TargetName="_blank" NavigateUri="https://github.com/yaurthek" />
                         <TextBlock Text="{Binding Path=Strings.About_Libraries, Source={StaticResource UiStrings}}"
                            HorizontalAlignment="Center" />
 
