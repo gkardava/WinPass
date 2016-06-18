@@ -10,7 +10,7 @@ namespace KeePass.Sources.DropBox
 {
     public partial class DropBoxAuth
     {
-        private const string CALL_BACK = "http://7pass.wordpress.com"; //TODO remove url
+        private const string CALL_BACK = "https://github.com/gkardava/WinPass/blob/master/README.md"; //TODO remove url
 
         private readonly DropNetClient _client;
         private readonly ProgressIndicator _indicator;
