@@ -287,8 +287,8 @@ namespace KeePass.IO.Read
 
                     wait.WaitOne();
                 }
-
-                icons.Add(id, image);
+                if (!icons.ContainsKey(id))
+                    icons.Add(id, image);
             }
         }
 
@@ -409,7 +409,7 @@ namespace KeePass.IO.Read
                 if (subReader.Name != "LastModificationTime")
                     subReader.ReadToFollowing("LastModificationTime");
                 string date = "";
-                    date = subReader.ReadElementContentAsString();
+                date = subReader.ReadElementContentAsString();
                 if (!DateTime.TryParse(date, out result))
                     throw new DateTimeFormatException($"{date} is invalid date format");
             }
