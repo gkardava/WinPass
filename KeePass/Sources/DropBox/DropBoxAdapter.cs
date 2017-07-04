@@ -117,17 +117,15 @@ namespace KeePass.Sources.DropBox
         {
             var orgPath = path;
 
-            using (var stream = new MemoryStream(_info.Database))
-            {
-                DropBoxUtils.CallAsyncAndDispose(
-                    () => _client.Client.Files.UploadAsync(DropBoxUtils.RenderUrl(path.Replace('\\', '/')), body: stream),
-                    x => DropBoxUtils.CallAsync(
-                        () => _client.Client.Files.GetMetadataAsync(DropBoxUtils.RenderUrl(orgPath)),
-                        completed,
-                        OnError),
-                    OnError,
-                    stream);
-            }
+            var stream = new MemoryStream(_info.Database);
+            DropBoxUtils.CallAsyncAndDispose(
+                () => _client.Client.Files.UploadAsync(DropBoxUtils.RenderUrl(path.Replace('\\', '/')), body: stream),
+                x => DropBoxUtils.CallAsync(
+                    () => _client.Client.Files.GetMetadataAsync(DropBoxUtils.RenderUrl(orgPath)),
+                    completed,
+                    OnError),
+                OnError,
+                stream);
         }
     }
 }

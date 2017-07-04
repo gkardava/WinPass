@@ -67,7 +67,7 @@ namespace KeePass.Sources.DropBox
             await CallAsyncImpl(method, onSuccess, onError);
         }
 
-        public static async System.Threading.Tasks.Task CallAsyncImpl<T>(Func<System.Threading.Tasks.Task<T>> method, Action<T> onSuccess, Action<DropboxException> onError)
+        private static async System.Threading.Tasks.Task CallAsyncImpl<T>(Func<System.Threading.Tasks.Task<T>> method, Action<T> onSuccess, Action<DropboxException> onError)
         {
             var task = method();
             try
