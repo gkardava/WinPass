@@ -1,7 +1,7 @@
 using System;
 using System.IO;
-using DropNet;
-using DropNet.Models;
+using Dropbox.Api;
+using Dropbox.Api.Files;
 using KeePass.IO.Utils;
 using KeePass.Storage;
 
@@ -9,7 +9,7 @@ namespace KeePass.Sources.DropBox
 {
     internal class DropBoxAdapter : ServiceAdapterBase
     {
-        private DropNetClient _client;
+        private DropboxClientWrapper _client;
         private SyncInfo _info;
 
         public override void Conflict(ListItem item,
@@ -25,8 +25,9 @@ namespace KeePass.Sources.DropBox
         public override void Download(ListItem item,
             Action<ListItem, byte[]> downloaded)
         {
-            _client.GetFileAsync(_info.Path,
-                x => downloaded(item, x.RawBytes),
+            DropBoxUtils.CallAsync(
+                () => _client.Client.Files.DownloadAsync(DropBoxUtils.RenderUrl(_info.Path)),
+                async t => downloaded(item, await t.GetContentAsByteArrayAsync()),
                 OnError);
         }
 
@@ -37,7 +38,15 @@ namespace KeePass.Sources.DropBox
 
             var details = info.Details;
             var url = new Uri(details.Url);
-            _client = CreateClient(url.UserInfo);
+            var userInfo = url.UserInfo;
+            if (DropBoxUtils.UpdateAuth(ref userInfo))
+            {
+                var urlBld = new UriBuilder(url);
+                urlBld.UserName = userInfo;
+                urlBld.Password = null;
+                details.Url = urlBld.Uri.ToString();
+            }
+            _client = CreateClient(userInfo);
 
             _info = new SyncInfo
             {
@@ -60,7 +69,8 @@ namespace KeePass.Sources.DropBox
 
         public override void List(Action<ListItem> ready)
         {
-            _client.GetMetaDataAsync(_info.Path,
+            DropBoxUtils.CallAsync(
+                () => _client.Client.Files.GetMetadataAsync(DropBoxUtils.RenderUrl(_info.Path)),
                 meta => ready(Translate(meta)),
                 OnError);
         }
@@ -72,12 +82,9 @@ namespace KeePass.Sources.DropBox
                 meta => uploaded(Translate(meta)));
         }
 
-        private static DropNetClient CreateClient(string userInfo)
+        private static DropboxClientWrapper CreateClient(string userInfo)
         {
-            var parts = userInfo.Split(':');
-            
-            return DropBoxUtils.Create(
-                parts[0], parts[1]);
+            return DropBoxUtils.Create(userInfo);
         }
 
         private string GetNonConflictPath()
@@ -96,29 +103,29 @@ namespace KeePass.Sources.DropBox
                 .Replace('\\', '/');
         }
 
-        private static ListItem Translate(MetaData meta)
+        private static ListItem Translate(Metadata meta)
         {
             return new ListItem
             {
                 Tag = meta,
-                Timestamp = meta.Modified,
+                Timestamp = meta.IsFile ? meta.AsFile.ClientModified.ToString("r") : string.Empty,
             };
         }
 
         private void UploadFileAsync(string path,
-            Action<MetaData> completed)
+            Action<Metadata> completed)
         {
             var orgPath = path;
 
-            var fileName = Path.GetFileName(path);
-            path = Path.GetDirectoryName(path)
-                .Replace('\\', '/');
-
-            _client.UploadFileAsync(path,
-                fileName, _info.Database,
-                x => _client.GetMetaDataAsync(
-                    orgPath, completed, OnError),
-                OnError);
+            var stream = new MemoryStream(_info.Database);
+            DropBoxUtils.CallAsyncAndDispose(
+                () => _client.Client.Files.UploadAsync(DropBoxUtils.RenderUrl(path.Replace('\\', '/')), body: stream),
+                x => DropBoxUtils.CallAsync(
+                    () => _client.Client.Files.GetMetadataAsync(DropBoxUtils.RenderUrl(orgPath)),
+                    completed,
+                    OnError),
+                OnError,
+                stream);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Globalization;
-using DropNet.Models;
+using Dropbox.Api.Files;
 using KeePass.Data;
 using KeePass.Utils;
 
@@ -9,7 +9,7 @@ namespace KeePass.Sources.DropBox
     internal class MetaListItemInfo : ListItemInfo, IListItem
     {
         private readonly bool _isDir;
-        private readonly string _modified;
+        private readonly DateTime _modified;
         private readonly string _path;
         private readonly long _size;
 
@@ -18,7 +18,7 @@ namespace KeePass.Sources.DropBox
             get { return _isDir; }
         }
 
-        public string Modified
+        public DateTime Modified
         {
             get { return _modified; }
         }
@@ -33,20 +33,20 @@ namespace KeePass.Sources.DropBox
             get { return _size; }
         }
 
-        public MetaListItemInfo(MetaData data)
+        public MetaListItemInfo(Metadata data)
         {
             if (data == null)
                 throw new ArgumentNullException("data");
 
-            _path = data.Path;
-            _size = data.Bytes;
-            _isDir = data.Is_Dir;
-            _modified = data.Modified;
+            _path = data.PathDisplay; // PathLower?
+            _size = data.IsFile ? (long)data.AsFile.Size : 0;
+            _isDir = data.IsFolder;
+            _modified = data.IsFile ? data.AsFile.ClientModified : DateTime.Now;
 
             Title = data.Name;
             Notes = GetRelativeTime(data);
             Icon = ThemeData.GetImage(
-                data.Is_Dir ? "folder" : "entry");
+                data.IsFolder ? "folder" : "entry");
         }
 
         public MetaListItemInfo(string path)
@@ -56,23 +56,16 @@ namespace KeePass.Sources.DropBox
 
             _path = path;
             _isDir = true;
-            _modified = string.Empty;
+            _modified = DateTime.Now;
 
             Title = "Parent Folder";
             Icon = ThemeData.GetImage("parent");
         }
 
-        private static string GetRelativeTime(MetaData data)
+        private static string GetRelativeTime(Metadata data)
         {
-            DateTime date;
-            var parsed = DateTime.TryParseExact(
-                data.Modified,
-                "ddd, dd MMM yyyy HH:mm:ss +ffff",
-                CultureInfo.InvariantCulture,
-                DateTimeStyles.None, out date);
-
-            return parsed
-                ? date.ToRelative()
+            return data.IsFile
+                ? data.AsFile.ClientModified.ToRelative()
                 : string.Empty;
         }
     }

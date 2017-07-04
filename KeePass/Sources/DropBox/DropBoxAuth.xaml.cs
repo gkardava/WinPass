@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Windows;
-using DropNet;
+using Dropbox.Api;
 using KeePass.Utils;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -11,29 +11,41 @@ namespace KeePass.Sources.DropBox
     public partial class DropBoxAuth
     {
         private const string CALL_BACK = "https://github.com/gkardava/WinPass/blob/master/README.md"; //TODO remove url
+        // CALL_BACK is the url registered in the App Console. According to DropBox it is common to use a localhost URI.
 
-        private readonly DropNetClient _client;
         private readonly ProgressIndicator _indicator;
+        private readonly string _oauth2State = Guid.NewGuid().ToString("N");
 
         public DropBoxAuth()
         {
             InitializeComponent();
 
             _indicator = AddIndicator();
-            _client = DropBoxUtils.Create();
         }
 
-        private void CheckToken()
+        private void CheckToken(Uri uri)
         {
-            _client.GetAccessTokenAsync(x =>
+            try
             {
-                var folder = NavigationContext
-                    .QueryString["folder"];
+                var result = DropboxOAuth2Helper.ParseTokenFragment(uri);
+                if (result.State != _oauth2State)
+                {
+                    ShowError();
+                }
+                else
+                {
+                    var folder = NavigationContext
+                        .QueryString["folder"];
 
-                this.NavigateTo<List>(
-                    "token={0}&secret={1}&folder={2}",
-                    x.Token, x.Secret, folder);
-            }, ex => ShowError());
+                    this.NavigateTo<List>(
+                        "token={0}&folder={1}",
+                        result.AccessToken, folder);
+                }
+            }
+            catch(ArgumentException)
+            {
+                ShowError();
+            }
         }
 
         private void ShowError()
@@ -56,16 +68,8 @@ namespace KeePass.Sources.DropBox
             if (!Network.CheckNetwork())
                 return;
 
-            _client.GetTokenAsync(x =>
-            {
-                var url = _client.BuildAuthorizeUrl(x, CALL_BACK);
-
-                url = "https://www.dropbox.com/logout?cont=" +
-                    HttpUtility.UrlEncode(url);
-
-                Dispatcher.BeginInvoke(() =>
-                    browser.Navigate(new Uri(url)));
-            }, ex => ShowError());
+            var authorizeUri = DropboxOAuth2Helper.GetAuthorizeUri(OAuthResponseType.Token, ApiKeys.DROPBOX_KEY, CALL_BACK, state: _oauth2State);
+            Dispatcher.BeginInvoke(() => browser.Navigate(authorizeUri));
         }
 
         private void browser_Navigating(object sender, NavigatingEventArgs e)
@@ -73,7 +77,10 @@ namespace KeePass.Sources.DropBox
             _indicator.IsVisible = !e.Cancel;
 
             if (e.Uri.ToString().StartsWith(CALL_BACK))
-                CheckToken();
+            {
+                e.Cancel = true;
+                CheckToken(e.Uri);
+            }
         }
     }
 }

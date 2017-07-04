@@ -3,8 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Navigation;
-using DropNet.Exceptions;
-using DropNet.Models;
+using Dropbox.Api;
+using Dropbox.Api.Files;
 using KeePass.I18n;
 using KeePass.IO.Data;
 using KeePass.Storage;
@@ -20,7 +20,6 @@ namespace KeePass.Sources.DropBox
         private string _folder;
         private bool _loaded;
         private string _path;
-        private string _secret;
         private string _token;
 
         public List()
@@ -55,7 +54,6 @@ namespace KeePass.Sources.DropBox
             _path = "/";
             _token = pars["token"];
             _folder = pars["folder"];
-            _secret = pars["secret"];
         }
 
         private void NavigateTo(string path)
@@ -78,7 +76,7 @@ namespace KeePass.Sources.DropBox
         }
 
         private void OnFileDownloaded(byte[] file,
-            string path, string title, string modified)
+            string path, string title, DateTime modified)
         {
             var dispatcher = Dispatcher;
 
@@ -95,7 +93,7 @@ namespace KeePass.Sources.DropBox
                         storage.SetDatabase(buffer, new DatabaseDetails
                         {
                             Url = path,
-                            Modified = modified,
+                            Modified = modified.ToString("r"),
                             Name = title.RemoveKdbx(),
                             Type = SourceTypes.Synchronizable,
                             Source = DatabaseUpdater.DROPBOX_UPDATER,
@@ -129,27 +127,27 @@ namespace KeePass.Sources.DropBox
             }
         }
 
-        private void OnListComplete(MetaData data)
+        private void OnListComplete(ListFolderResult data)
         {
             var dispatcher = Dispatcher;
 
             try
             {
-                var items = data.Contents
-                    .OrderBy(x => !x.Is_Dir)
+                var items = data.Entries
+                    .OrderBy(x => !x.IsFolder)
                     .ThenBy(x => x.Name)
                     .Select(x => new MetaListItemInfo(x))
                     .ToList();
 
-                if (data.Path != "/")
+                if (_path != "/")
                 {
-                    var sepIndex = data.Path.LastIndexOf(
+                    var sepIndex = _path.LastIndexOf(
                         "/", StringComparison.Ordinal);
 
                     if (sepIndex == 0)
                         sepIndex = 1;
 
-                    var grandParent = data.Path.Remove(sepIndex);
+                    var grandParent = _path.Remove(sepIndex);
                     items.Insert(0, new MetaListItemInfo(grandParent));
                 }
 
@@ -179,11 +177,12 @@ namespace KeePass.Sources.DropBox
             progBusy.IsBusy = true;
             _cmdRefresh.IsEnabled = false;
 
-            var client = DropBoxUtils.Create(
-                _token, _secret);
+            var client = DropBoxUtils.Create(_token);
 
-            client.GetMetaDataAsync(_path,
-                OnListComplete, OnListFailed);
+            DropBoxUtils.CallAsync(
+                () => client.Client.Files.ListFolderAsync(DropBoxUtils.RenderUrl(_path)),
+                OnListComplete,
+                OnListFailed);
         }
 
         private void cmdRefresh_Click(object sender, EventArgs e)
@@ -217,12 +216,12 @@ namespace KeePass.Sources.DropBox
             progBusy.IsBusy = true;
 
             var client = DropBoxUtils
-                .Create(_token, _secret);
+                .Create(_token);
 
             var url = client.GetUrl(meta.Path);
-            client.GetFileAsync(meta.Path,
-                x => OnFileDownloaded(x.RawBytes, url,
-                    meta.Title, meta.Modified),
+            DropBoxUtils.CallAsync(
+                () => client.Client.Files.DownloadAsync(DropBoxUtils.RenderUrl(meta.Path)),
+                async t => OnFileDownloaded(await t.GetContentAsByteArrayAsync(), url, meta.Title, meta.Modified),
                 OnFileDownloadFailed);
         }
     }

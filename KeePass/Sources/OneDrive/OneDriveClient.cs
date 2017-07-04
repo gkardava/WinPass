@@ -26,7 +26,7 @@ namespace KeePass.Sources.OneDrive
             _client = new RestClient
             {
                 UserAgent = "WinPass",
-                BaseUrl = new Uri("https://apis.live.net/v5.0/"),
+                BaseUrl = new Uri("https://apis.live.net/v5.0/").ToString(),
             };
 
             SetToken(token);
